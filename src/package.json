@@ -3,7 +3,7 @@
   "productName": "Calculator",
   "version": "0.1.0",
   "description": "Calculator by Tough Question",
-  "main": "main.js",
+  "main": "inc/main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
