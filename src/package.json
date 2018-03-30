@@ -3,7 +3,7 @@
   "productName": "Calculator",
   "version": "0.1.0",
   "description": "Calculator by Tough Question",
-  "main": "src/index.js",
+  "main": "main.js",
   "scripts": {
     "start": "electron-forge start",
     "package": "electron-forge package",
@@ -12,8 +12,8 @@
     "lint": "eslint src --color"
   },
   "keywords": [],
-  "author": "jozefhruska",
-  "license": "MIT",
+  "author": "Tough Question",
+  "license": "GNU",
   "config": {
     "forge": {
       "make_targets": {
@@ -48,7 +48,9 @@
   },
   "dependencies": {
     "electron-compile": "^6.4.2",
-    "electron-squirrel-startup": "^1.0.0"
+    "electron-squirrel-startup": "^1.0.0",
+    "electron-stream": "^5.1.2",
+    "npm": "^5.8.0"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",
