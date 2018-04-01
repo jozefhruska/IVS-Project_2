@@ -1,57 +1,54 @@
-import { app, BrowserWindow } from 'electron';
+'use strict'
 
-// Handle creating/removing shortcuts on Windows when installing/uninstalling.
-if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
-  app.quit();
+var LOG_PREFIX = "index.js: "
+
+// Get all dependencies
+window.$ = window.jQuery = require('jquery')
+window.Tether = require('tether')
+window.Bootstrap = require('bootstrap')
+const timber = require('electron-timber');
+
+// Get all elements
+const keys = document.querySelectorAll("[data-key]");
+const EQ = $("#EQ");
+const displayMain = $("#display-main");
+const displayHistory = $("#display-history");
+
+// Toggle between colors on displayHistory and EQ elements
+function toggleClass (color) {
+	displayHistory.removeClass("red");
+	displayHistory.removeClass("green");
+	displayHistory.removeClass("blue");
+	displayHistory.removeClass("yellow");
+	displayHistory.addClass(color);
+
+	EQ.removeClass("red");
+	EQ.removeClass("green");
+	EQ.removeClass("blue");
+	EQ.removeClass("yellow");
+	EQ.addClass(color);
 }
 
-// Keep a global reference of the window object, if you don't, the window will
-// be closed automatically when the JavaScript object is garbage collected.
-let mainWindow;
+// Set OnClick listener for every key but EQ
+for (let i = 0; i < keys.length; i++) {
+	keys[i].onclick = function (e) {
 
-const createWindow = () => {
-  // Create the browser window.
-  mainWindow = new BrowserWindow({
-    width: 800,
-    height: 600,
-  });
+		switch (i) {
+			case 3:
+				toggleClass("red");
+				break;
+			case 7:
+				toggleClass("green");
+				break;
+			case 11:
+				toggleClass("blue");
+				break;
+			case 15:
+				toggleClass("yellow");
+				break;
+		}
 
-  // and load the index.html of the app.
-  mainWindow.loadURL(`file://${__dirname}/index.html`);
-
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
-  // Emitted when the window is closed.
-  mainWindow.on('closed', () => {
-    // Dereference the window object, usually you would store windows
-    // in an array if your app supports multi windows, this is the time
-    // when you should delete the corresponding element.
-    mainWindow = null;
-  });
-};
-
-// This method will be called when Electron has finished
-// initialization and is ready to create browser windows.
-// Some APIs can only be used after this event occurs.
-app.on('ready', createWindow);
-
-// Quit when all windows are closed.
-app.on('window-all-closed', () => {
-  // On OS X it is common for applications and their menu bar
-  // to stay active until the user quits explicitly with Cmd + Q
-  if (process.platform !== 'darwin') {
-    app.quit();
-  }
-});
-
-app.on('activate', () => {
-  // On OS X it's common to re-create a window in the app when the
-  // dock icon is clicked and there are no other windows open.
-  if (mainWindow === null) {
-    createWindow();
-  }
-});
-
-// In this file you can include the rest of your app's specific main process
-// code. You can also put them in separate files and import them here.
+		// Log click event - DO NOT DELETE
+		timber.log(LOG_PREFIX + "onClick key ID = " + i);
+	}
+}

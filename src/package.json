@@ -47,10 +47,15 @@
     }
   },
   "dependencies": {
+    "bootstrap": "^4.0.0",
     "electron-compile": "^6.4.2",
     "electron-squirrel-startup": "^1.0.0",
     "electron-stream": "^5.1.2",
-    "npm": "^5.8.0"
+    "electron-timber": "^0.4.0",
+    "jquery": "^3.3.1",
+    "npm": "^5.8.0",
+    "popper.js": "^1.14.1",
+    "tether": "^1.4.3"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

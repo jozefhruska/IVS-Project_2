@@ -2,9 +2,68 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+
+    <!-- Bootstrap stylesheet -->
+    <link rel="stylesheet" href="../../node_modules/bootstrap/dist/css/bootstrap.min.css">
+
+    <!-- Project stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
   </head>
   <body>
-    Well hey there!!!
+
+    <div class="app-wrapper">
+      <div class="app-page page-calculator">
+        <div class="page-top" style="-webkit-app-region: drag">
+          <div class="display" style="-webkit-app-region: no-drag">
+            <div class="display-main" id="display-main">42O</div>
+            <div class="display-history" id="display-history">3 + 3 × 70</div>
+          </div>
+        </div>
+        <div class="page-bottom">
+          <div class="keyboard container-fluid">
+
+            <div class="row">
+              <div class="col" data-key="0"><span class="inner">AC</span></div>
+              <div class="col" data-key="1"><span class="inner">+/-</span></div>
+              <div class="col" data-key="2"><span class="inner">%</span></div>
+              <div class="col" data-key="3"><span class="inner red">÷</span></div>
+            </div>
+
+            <div class="row">
+                <div class="col" data-key="4"><span class="inner">7</span></div>
+                <div class="col" data-key="5"><span class="inner">8</span></div>
+                <div class="col" data-key="6"><span class="inner">9</span></div>
+                <div class="col" data-key="7"><span class="inner green">×</span></div>
+            </div>
+
+            <div class="row">
+                <div class="col" data-key="8"><span class="inner">4</span></div>
+                <div class="col" data-key="9"><span class="inner">5</span></div>
+                <div class="col" data-key="10"><span class="inner">6</span></div>
+                <div class="col" data-key="11"><span class="inner blue">-</span></div>
+            </div>
+
+            <div class="row">
+                <div class="col" data-key="12"><span class="inner">1</span></div>
+                <div class="col" data-key="13"><span class="inner">2</span></div>
+                <div class="col" data-key="14"><span class="inner">3</span></div>
+                <div class="col" data-key="15"><span class="inner yellow">+</span></div>
+            </div>
+
+            <div class="row">
+                <div class="col" data-key="16"><span class="inner">00</span></div>
+                <div class="col" data-key="17"><span class="inner">0</span></div>
+                <div class="col" data-key="18"><span class="inner">,</span></div>
+                <div class="col">
+                  <span class="w-100 h-100 p-2"><button id="EQ">=</button></span>
+                </div>
+            </div>
+
+          </div>
+        </div>
+      </div><!-- .app-page -->
+    </div><!-- .app-wrapper -->
+
+    <!-- Renderer JS -->
+    <script src="index.js"></script>
   </body>
-</html>
