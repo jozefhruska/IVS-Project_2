@@ -1,0 +1,26 @@
+Stanovené termíny:
+-----------
+Dokončenie testov - 6. 4. 2018
+Prvý spustiteľný prototyp - 8. 4. 2018
+Dokončenie matematickej knižnice - 15. 4. 2018
+Dokončenie GUI - 22. 4. 2018
+Dokončenie dokumentácie - 22. 4. 2018
+Bonusové úlohy - 29. 4. 2018
+
+Stanovené termíny:
+-----------
+xhrusk25 - GUI, prepojenie Frontend/Backend
+xploci00 - Testy, Matematická knižnica
+xcikel00 - Matematická knižnica, Dokumentácia
+xstrna11 - Dokumentácia, Backend
+
+Zvolené komunikačné nástroje
+-----------
+Discord - Komunikačné pravidlá pre Discord nemáme, bude to slúžiť na voľnejšiu komunikáciu
+Trello - Práca SCRUM metodikou. Každý (prípadne viac členov) dostane rozdelené čiastkové úlohy z projektu, ktoré si vytiahnu z Backlogu,
+ak budú hotové - presunú do "For Review". Úlohy v "For Review" budú preverené iným členom tímu a označené ako "Done" alebo poslané späť do
+Backlogu s pripomienkou.
+
+Zvolený systém pre správu verzii
+-----------
+GitHub - https://github.com/jozefhruska/IVS-Project_2 (Public)
