@@ -2,9 +2,12 @@
 EFORGE=electron-forge
 ESTART=$(EFORGE) start
 EPACKAGE=$(EFORGE) package
+QUNIT=qunit
 
 run:
 	$(ESTART)
+test:
+	$(QUNIT)
 
 package-linux:
 	$(EPACKAGE) --platform linux --arch x64
