@@ -13,6 +13,7 @@ const keys = document.querySelectorAll("[data-key]");
 const EQ = $("#EQ");
 const displayMain = $("#display-main");
 const displayHistory = $("#display-history");
+const menuToggle = $("#menu-toggle");
 
 // Toggle between colors on displayHistory and EQ elements
 function toggleClass (color) {
@@ -31,7 +32,7 @@ function toggleClass (color) {
 
 // Set OnClick listener for every key but EQ
 for (let i = 0; i < keys.length; i++) {
-	keys[i].onclick = function (e) {
+	keys[i].onclick = function () {
 
 		switch (i) {
 			case 3:
@@ -52,3 +53,8 @@ for (let i = 0; i < keys.length; i++) {
 		timber.log(LOG_PREFIX + "onClick key ID = " + i);
 	}
 }
+
+// Menu toggle onClick listener
+menuToggle.on('click', function() {
+	$(this.parentNode).children('ul').slideToggle(300);
+});
