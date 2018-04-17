@@ -6,7 +6,10 @@
  * @returns {number|false} Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQadd(a, b) {
-    return ((a && b) ? a + b : false)
+    a = Number(a);
+    b = Number(b);
+
+    return ((a != null && b != null) ? a + b : false)
 }
 
 /**
@@ -17,7 +20,10 @@ function TQadd(a, b) {
  * @returns {number|false} Difference of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQsub(a, b) {
-    return ((a && b) ? a - b : false)
+    a = Number(a);
+    b = Number(b);
+
+    return ((a != null && b != null) ? a - b : false)
 }
 
 /**
@@ -28,7 +34,10 @@ function TQsub(a, b) {
  * @returns {number|false} Division of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQdiv(a, b) {
-    return ((a && b && b != 0) ? a / b : false)
+    a = Number(a);
+    b = Number(b);
+
+    return ((a != null && b != null && b != 0) ? a / b : false)
 }
 
 /**
@@ -39,7 +48,10 @@ function TQdiv(a, b) {
  * @returns {number|false} Multiplication of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQmul(a, b) {
-    return ((a && b) ? a * b : false)
+    a = Number(a);
+    b = Number(b);
+
+    return ((a != null && b != null) ? a * b : false)
 }
 
 /**
@@ -49,7 +61,9 @@ function TQmul(a, b) {
  * @returns {number, false} Factorial of argument 'a' or false if argument is not correct
  */
 function TQfact(a) {
-    if (a && a >= 0) {
+    a = Number(a);
+
+    if (a != null && a >= 0) {
         for (var i = 0; i < a; i++) {
             a = a * (a - i);
         }
@@ -65,7 +79,10 @@ function TQfact(a) {
  * @returns {number|false} Argument 'a' to the power of 'n'
  */
 function TQpow(a, n) {
-    if (a && n) {
+    a = Number(a);
+    n = Number(n);
+
+    if (a != null && n != null) {
         if (n > 0) {
             var b = a;
             for (var i = n; i > 1; i--) {
@@ -92,11 +109,13 @@ function TQpow(a, n) {
  * @returns {number|false} Square root of argument 'a' or false if argument is a negative number
  */
 function TQsqrt(a) {
+    a = Number(a);
+
     var guess = Math.ceil(a / 2);
     var nextguess;
     var num_itr = 0;
 
-    if (a < 0) return false;
+    if (a != null && a < 0) return false;
     else {
         while (('' + guess).length < 8 || num_itr < 8) {
 
