@@ -1,133 +1,121 @@
-// Math library
-// Passing the value as a String
-
-
-
-
-
-
-
-
-
-
-function TQadd(a,b){ 
-    return a+b;
-} 
-
-
-function TQsub(a,b){ 
-    return a-b;
-} 
-
-
-/*
-@brief If var "b"is 0 throws an exepction
-*/
-function TQdiv(a,b){ 
-    if (b==0){
-        throw exception;
-        return 0;
-    }
-    else { 
-    return a/b;
-    }
-} 
-
-
-
-function TQmul(a,b){ 
-    return a*b;
-}
-
-
-
-
-function TQfact(a){  
-    if (a<0){ 
-    throw exception;
-        return 0;
-    } 
-    else { 
-    for(var i=0; i<a;i++){ 
-        a=a*(a-i);
-    
-    }
-    }  
-    return a;
-
-}
-
-
-/*
- @brief Power function: take var "a" and "n" as input.
-        Var "a" is the value which functio powers with var "n" 
-*/
-
-function TQpow(a,n){
-    
-    if(n>0){ 
-    var b=a;
-        for( var i=n; i>1;i--){ 
-            b=b*a;
-        }
-    } 
-
-    else if (n<0){ 
-    var b=a;
-        for ( var i=Math.abs(n); i>-1;i++){ 
-            b=b*a;
-        }
-        b=1/b;
-    }
-
-    else {
-        b=1;
-    }
-
-         
-
- return b;
-}
-
-
-
-/*
-  @brief Sqrt function using Newton's method
-  Returns exception if a input is a negative number
-  Stops the calculation if a number of it
+/**
+ * Addition
+ *
+ * @param {number} a First number to add
+ * @param {number} b Second number to add
+ * @returns {number|false} Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
+function TQadd(a, b) {
+    return ((a && b) ? a + b : false)
+}
 
-function TQsqrt(a){  
- var guess= Math.ceil(a/2);
- var nextguess;
- var num_itr=0;
+/**
+ * Subtraction
+ *
+ * @param {number} a First number from which will be subtracted
+ * @param {number} b Second number which will be substracted
+ * @returns {number|false} Difference of arguments 'a' and 'b' or false if arguments are not correct
+ */
+function TQsub(a, b) {
+    return ((a && b) ? a - b : false)
+}
 
- if(a<0){ 
-     throw exception;
-     return 0;
- }
- else {
- while((''+guess).length < 8 || num_itr<8 ){ 
+/**
+ * Division
+ *
+ * @param {number} a First number (Divident)
+ * @param {number} b Second number (Divisor)
+ * @returns {number|false} Division of arguments 'a' and 'b' or false if arguments are not correct
+ */
+function TQdiv(a, b) {
+    return ((a && b && b != 0) ? a / b : false)
+}
 
-        nextguess=guess - ((TQpow(guess,2)-a)/(2*(guess)));
-        guess=nextguess;
-        num_itr++;
- } 
-}  
-return nextguess;
+/**
+ * Multiplication
+ *
+ * @param {number} a First number to multiplicate
+ * @param {number} b Second number to multiplicate
+ * @returns {number|false} Multiplication of arguments 'a' and 'b' or false if arguments are not correct
+ */
+function TQmul(a, b) {
+    return ((a && b) ? a * b : false)
+}
+
+/**
+ * Factorial
+ *
+ * @param {number} a
+ * @returns {number, false} Factorial of argument 'a' or false if argument is not correct
+ */
+function TQfact(a) {
+    if (a && a >= 0) {
+        for (var i = 0; i < a; i++) {
+            a = a * (a - i);
+        }
+    } else return false;
+}
+
+/**
+ * Exponentation
+ *
+ * @param {number} a First number (Base)
+ * @param {number} n Second number (Exponent)
+
+ * @returns {number|false} Argument 'a' to the power of 'n'
+ */
+function TQpow(a, n) {
+    if (a && n) {
+        if (n > 0) {
+            var b = a;
+            for (var i = n; i > 1; i--) {
+                b = b * a;
+            }
+        } else if (n < 0) {
+            var b = a;
+            for (var i = Math.abs(n); i > -1; i++) {
+                b = b * a;
+            }
+            b = 1 / b;
+        } else {
+            b = 1;
+        }
+
+        return b;
+    } else return false;
+}
+
+/**
+ * Square root - using Newton's method
+ *
+ * @param {number} a
+ * @returns {number|false} Square root of argument 'a' or false if argument is a negative number
+ */
+function TQsqrt(a) {
+    var guess = Math.ceil(a / 2);
+    var nextguess;
+    var num_itr = 0;
+
+    if (a < 0) return false;
+    else {
+        while (('' + guess).length < 8 || num_itr < 8) {
+
+            nextguess = guess - ((TQpow(guess, 2) - a) / (2 * (guess)));
+            guess = nextguess;
+            num_itr++;
+        }
+    }
+    return nextguess;
+}
+
+/**
+ * @todo Function logarithm
+ */
+function TQlog(a) {
 
 }
 
-/*
-@todo Function logarithm
-*/
-
-function TQlog(a){ 
-       
-}
-
-
-
+//Export library functions
 module.exports = {
     TQadd: TQadd,
     TQsub: TQsub,
