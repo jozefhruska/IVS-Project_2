@@ -64,8 +64,8 @@ function TQfact(a) {
     a = Number(a);
 
     if (a != null && a >= 0) {
-        for (var i = 0; i < a; i++) {
-            a = a * (a - i);
+        for (let i = a - 1; i > 0; i--) {
+            a = a * i;
         }
     } else return false;
 }
@@ -84,13 +84,16 @@ function TQpow(a, n) {
 
     if (a != null && n != null) {
         if (n > 0) {
-            var b = a;
-            for (var i = n; i > 1; i--) {
+            let b = a;
+            for (let i = n; i > 1; i--) {
                 b = b * a;
             }
         } else if (n < 0) {
-            var b = a;
-            for (var i = Math.abs(n); i > -1; i++) {
+            let b = a;
+            if (a==0){
+                return false;
+            }
+            for (let i = Math.abs(n); i > 1; i--) {
                 b = b * a;
             }
             b = 1 / b;
@@ -111,17 +114,20 @@ function TQpow(a, n) {
 function TQsqrt(a) {
     a = Number(a);
 
-    var guess = Math.ceil(a / 2);
-    var nextguess;
-    var num_itr = 0;
+    let guess = Math.ceil(a / 2);
+    let nextguess;
+    let num_itr = 0;
 
     if (a != null && a < 0) return false;
     else {
-        while (('' + guess).length < 8 || num_itr < 8) {
-
-            nextguess = guess - ((TQpow(guess, 2) - a) / (2 * (guess)));
-            guess = nextguess;
-            num_itr++;
+        if (a == 0) {
+            nextguess = 0;
+        } else {
+            while (num_itr < 8) {
+                nextguess = guess - ((TQpow(guess, 2) - a) / (2 * (guess)));
+                guess = nextguess;
+                num_itr++;
+            }
         }
     }
     return nextguess;
