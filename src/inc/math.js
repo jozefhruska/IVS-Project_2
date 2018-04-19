@@ -134,9 +134,40 @@ function TQsqrt(a) {
 }
 
 /**
- * @todo Function logarithm
+ * @todo Function sinus
  */
-function TQlog(a) {
+function TQsin(a) {
+    let negA=false;
+    let negSin=false;
+    if (a<0){
+        negA=true;
+    }
+    a=Math.abs(a);
+    if (a>360){
+        while (a>360){
+            a=a-360;
+        }
+    }
+    if (a==0 || a==180 || a==360){
+        return 0;
+    }
+    if (a==90 || a==270){
+        return 1;
+    }
+    if (a>90 && a<180){
+        a=180-a;
+    }
+    else if (a>180 && a<270){
+        a=a-180;
+        negSin=true;
+    }
+    else {
+        a=360-a;
+        negSin=true;
+    }
+
+    a=(Math.PI/180)*a;
+    a=a-TQpow(a,3)
 
 }
 
