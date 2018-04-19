@@ -563,18 +563,36 @@ body {
     .page-calculator .page-top .display .display-history {
       display: block;
       width: 100%;
+      height: 18px;
       text-align: center;
       color: #FFFFFF;
       font-size: 18px;
       font-weight: 400; }
-      .page-calculator .page-top .display .display-history.red {
-        color: #FF2F6F; }
-      .page-calculator .page-top .display .display-history.green {
-        color: #00E6BB; }
-      .page-calculator .page-top .display .display-history.blue {
-        color: #3E70FF; }
-      .page-calculator .page-top .display .display-history.yellow {
-        color: #FDD759; }
+      .page-calculator .page-top .display .display-history.red span {
+        background: #FF2F6F; }
+      .page-calculator .page-top .display .display-history.green span {
+        background: #00E6BB; }
+      .page-calculator .page-top .display .display-history.blue span {
+        background: #3E70FF; }
+      .page-calculator .page-top .display .display-history.yellow span {
+        background: #FDD759; }
+      .page-calculator .page-top .display .display-history span {
+        padding: 6px 10px;
+        margin-right: 5px;
+        border-radius: 8px;
+        color: #fff !important; }
+        .page-calculator .page-top .display .display-history span:hover {
+          cursor: pointer;
+          opacity: 1.0 !important; }
+      .page-calculator .page-top .display .display-history span:first-child {
+        display: none;
+        opacity: 0.2; }
+      .page-calculator .page-top .display .display-history span:nth-child(2) {
+        display: none;
+        opacity: 0.4; }
+      .page-calculator .page-top .display .display-history span:nth-child(3) {
+        display: none;
+        opacity: 0.6; }
 
 .page-calculator .page-bottom {
   display: block;

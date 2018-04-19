@@ -26,6 +26,7 @@ const initalize = () => {
     mainWindow = null;
   });
 
+  // Dev tools
   mainWindow.webContents.openDevTools()
 };
 app.on('ready', initalize);
