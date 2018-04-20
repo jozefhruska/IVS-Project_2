@@ -67,7 +67,9 @@ function TQfact(a) {
         for (let i = a - 1; i > 0; i--) {
             a = a * i;
         }
+        return a;
     } else return false;
+
 }
 
 /**
@@ -81,15 +83,13 @@ function TQfact(a) {
 function TQpow(a, n) {
     a = Number(a);
     n = Number(n);
-
+    let b=a;
     if (a != null && n != null) {
         if (n > 0) {
-            let b = a;
             for (let i = n; i > 1; i--) {
                 b = b * a;
             }
         } else if (n < 0) {
-            let b = a;
             if (a==0){
                 return false;
             }
@@ -134,20 +134,23 @@ function TQsqrt(a) {
 }
 
 /**
- * @todo Function sinus
+ * Sinus 
+ * 
+ * @param {angle} a
+ * @returns {number|false} Sin of argument 'a' or flase if no argument was given 
  */
 function TQsin(a) {
+    a = Number(a);
     let negA=false;
     let negSin=false;
     if (a<0){
         negA=true;
     }
     a=Math.abs(a);
-    if (a>360){
-        while (a>360){
-            a=a-360;
-        }
-    }
+    while (a>360){
+        a=a-360;
+    } 
+    
     if (a==0 || a==180 || a==360){
         return 0;
     }
@@ -167,9 +170,67 @@ function TQsin(a) {
     }
 
     a=(Math.PI/180)*a;
-    a=a-TQpow(a,3)
-
+    a=a-TQpow(a,3)/TQfact(3)+TQpow(a,5)/TQfact(5)-TQpow(a,7)/TQfact(7);
+    if(negSin==true){ 
+        a=0-a;
+    }
+    if(negA==true){ 
+        a=0-a;
+    }
+    return (a!= null)?a:false;
 }
+
+
+/**
+ * Cosinus
+ * 
+ * @param {angle} a 
+ * @returns {number|false} Cosinus of argument 'a' or false if now argument was given
+ */ 
+
+
+function TQcos(a){ 
+    a = Number(a);
+    let negA=false;
+    let negCos=false;
+    if(a<0){ 
+        negA=true;
+    }
+    a=Math.abs(a);
+    while (a>360){ 
+        a=a-360;
+    }
+
+    if(a==0 || a==180 || a==360){ 
+        return 1;
+    }
+    if (a==90 || a==270){ 
+        return 0;
+    }
+    if(a>90 && a<180){ 
+        a=180-a;
+        negCos=true;
+    }
+    else if (a>180 && a<270){ 
+        a=a-180;
+        negCos=true;
+    }
+    else{ 
+        a=360-a;
+    }
+    a=(Math.PI/180)*a;
+    a=1-TQpow(a,2)/TQfact(2)-TQpow(a,4)/TQfact(4)-TQpow(a,6)/TQfact(6);
+    if(negCos==true){ 
+        a=0-a;        
+    }
+    if(negA==true){
+        a=0-a;
+    }
+    return (a!= null)?a:false;
+   
+}
+
+
 
 //Export library functions
 module.exports = {
@@ -180,5 +241,7 @@ module.exports = {
     TQfact: TQfact,
     TQpow: TQpow,
     TQsqrt: TQsqrt,
+    TQsin: TQsin,
+    TQcos: TQcos
 
 };
