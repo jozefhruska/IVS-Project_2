@@ -39,6 +39,7 @@ function toggleClass (color) {
 
 // Refresh calculator screen after action
 function refresh() {
+	calculator.isDecimal = false;
 	displayMain.html(calculator.history[calculator.history.length - 1]);
 
 	switch (calculator.history.length) {
@@ -203,6 +204,20 @@ keys.click(function (){
 				refresh();
 			}
 			break;
+			
+		case "18":
+		
+			if (!calculator.isDecimal)
+				{
+				calculator.isDecimal = true;
+				if (displayMain.html() == "0" || calculator.isClear == true) {
+					calculator.isClear = false;
+					displayMain.html($(this).children("span").html())
+				}
+				else displayMain.append($(this).children("span").html());
+				}
+			break;
+			
 		default:
 			if (displayMain.html() == "0" || calculator.isClear == true) {
 				calculator.isClear = false;
