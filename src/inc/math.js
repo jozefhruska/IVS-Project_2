@@ -85,7 +85,6 @@ function TQmul(a, b) {
  * @returns {number, false} Factorial of argument 'a' or false if argument is not correct
  */
 function TQfact(a) {
-	a = PercentCheck(a,"");
     a = Number(a);
 
     if (a != null && a >= 0) {
@@ -104,8 +103,6 @@ function TQfact(a) {
  * @returns {number|false} Argument 'a' to the power of 'n'
  */
 function TQpow(a, n) {
-	a = PercentCheck(a,"");
-	b = PercentCheck(b,a);
     a = Number(a);
     n = Number(n);
 
@@ -139,7 +136,6 @@ function TQpow(a, n) {
  * @returns {number|false} Square root of argument 'a' or false if argument is a negative number
  */
 function TQsqrt(a) {
-	a = PercentCheck(a,"");
     a = Number(a);
 
     let guess = Math.ceil(a / 2);

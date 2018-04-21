@@ -17,6 +17,11 @@ const EQ = $("#EQ");
 const displayMain = $("#display-main");
 const displayHistory = $("#display-history");
 const menuToggle = $("#menu-toggle");
+const function1 = $("#1");
+const function2 = $("#2");
+const function3 = $("#3");
+const function4 = $("#4");
+
 
 // Initialize calculator
 var Calculator = require("../calculator");
@@ -267,4 +272,26 @@ EQ.click(function() {
 // Menu toggle onClick listener
 menuToggle.click(function() {
 	$(this.parentNode).children("ul").slideToggle(300);
+});
+
+function1.click(function() {
+calculator.clearActiveOp();
+calculator.append(MathLib.TQsqrt(displayMain.html()));
+refresh();
+});
+/*function2.click(function() {
+calculator.clearActiveOp();
+calculator.append(MathLib.TQpow(displayMain.html()));
+refresh();
+});
+*/
+function3.click(function() {
+calculator.clearActiveOp();
+calculator.append(MathLib.TQsin(displayMain.html()));
+refresh();
+});
+function4.click(function() {
+calculator.clearActiveOp();
+calculator.append(MathLib.TQfact(displayMain.html()));
+refresh();
 });
