@@ -1,3 +1,19 @@
+function PercentCheck(x,y)
+{
+	
+	if (/^\d+(\.\d+)?%$/.test(x)) {
+    x = x.replace(/[^a-zA-Z0-9 ]/g, "");
+	if (y == "") return (x)
+	else return (x/100*y)
+	}
+	else return(x);
+}
+
+
+
+	
+
+
 /**
  * Addition
  *
@@ -6,6 +22,8 @@
  * @returns {number|false} Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQadd(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -20,6 +38,8 @@ function TQadd(a, b) {
  * @returns {number|false} Difference of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQsub(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -34,6 +54,8 @@ function TQsub(a, b) {
  * @returns {number|false} Division of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQdiv(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -48,6 +70,8 @@ function TQdiv(a, b) {
  * @returns {number|false} Multiplication of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQmul(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -61,6 +85,7 @@ function TQmul(a, b) {
  * @returns {number, false} Factorial of argument 'a' or false if argument is not correct
  */
 function TQfact(a) {
+	a = PercentCheck(a,"");
     a = Number(a);
 
     if (a != null && a >= 0) {
@@ -79,6 +104,8 @@ function TQfact(a) {
  * @returns {number|false} Argument 'a' to the power of 'n'
  */
 function TQpow(a, n) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     n = Number(n);
 
@@ -112,6 +139,7 @@ function TQpow(a, n) {
  * @returns {number|false} Square root of argument 'a' or false if argument is a negative number
  */
 function TQsqrt(a) {
+	a = PercentCheck(a,"");
     a = Number(a);
 
     let guess = Math.ceil(a / 2);

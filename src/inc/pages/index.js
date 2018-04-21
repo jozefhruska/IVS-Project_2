@@ -40,6 +40,7 @@ function toggleClass (color) {
 // Refresh calculator screen after action
 function refresh() {
 	calculator.isDecimal = false;
+	calculator.isPercent = false;
 	displayMain.html(calculator.history[calculator.history.length - 1]);
 
 	switch (calculator.history.length) {
@@ -87,6 +88,19 @@ keys.click(function (){
 			break;
 		case "1":
 			displayMain.html(displayMain.html() * -1)
+			break;
+		case "2":
+			if (!calculator.isPercent)
+				{
+				calculator.isDecimal = true;
+				calculator.isPercent = true;
+				if (displayMain.html() == "0" || calculator.isClear == true) {
+					calculator.isClear = false;
+					displayMain.html($(this).children("span").html())
+				}
+				else displayMain.append($(this).children("span").html());
+				}
+			break;
 			break;
 		case "3":
 			toggleClass("red");
