@@ -28,7 +28,7 @@ function PercentCheck(x,y)
 	//RegExp pro odstraneni nechtenych znaku, resp. "%"
 	if (/^\d+(\.\d+)?%$/.test(x)) {
     x = x.replace(/[^a-zA-Z0-9 ]/g, "");
-	if (y == "") return (x); 
+	if (y == "") return (x)
 	else return (x/100*y);
 	}
 	else return(x);
