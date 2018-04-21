@@ -1,9 +1,31 @@
 /**
+ * Copyright 2018 Tough Question
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file Mathematical library
+ * @author Dominika Pločicová <xploci00@vutbr.cz>
+ * @author Tomáš Čikel <xcikel00@vutbr.cz>
+ */
+'use strict'
+
+/**
  * Addition
  *
  * @param {number} a First number to add
  * @param {number} b Second number to add
- * @returns {number|false} Sum of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQadd(a, b) {
     a = Number(a);
@@ -17,7 +39,7 @@ function TQadd(a, b) {
  *
  * @param {number} a First number from which will be subtracted
  * @param {number} b Second number which will be substracted
- * @returns {number|false} Difference of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Difference of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQsub(a, b) {
     a = Number(a);
@@ -31,7 +53,7 @@ function TQsub(a, b) {
  *
  * @param {number} a First number (Divident)
  * @param {number} b Second number (Divisor)
- * @returns {number|false} Division of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Division of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQdiv(a, b) {
     a = Number(a);
@@ -45,7 +67,7 @@ function TQdiv(a, b) {
  *
  * @param {number} a First number to multiplicate
  * @param {number} b Second number to multiplicate
- * @returns {number|false} Multiplication of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Multiplication of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQmul(a, b) {
     a = Number(a);
@@ -58,7 +80,7 @@ function TQmul(a, b) {
  * Factorial
  *
  * @param {number} a
- * @returns {number, false} Factorial of argument 'a' or false if argument is not correct
+ * @returns Factorial of argument 'a' or false if argument is not correct
  */
 function TQfact(a) {
     a = Number(a);
@@ -76,7 +98,7 @@ function TQfact(a) {
  * @param {number} a First number (Base)
  * @param {number} n Second number (Exponent)
 
- * @returns {number|false} Argument 'a' to the power of 'n'
+ * @returns Argument 'a' to the power of 'n'
  */
 function TQpow(a, n) {
     a = Number(a);
@@ -90,7 +112,7 @@ function TQpow(a, n) {
             }
         } else if (n < 0) {
             let b = a;
-            if (a==0){
+            if (a == 0) {
                 return false;
             }
             for (let i = Math.abs(n); i > 1; i--) {
@@ -109,7 +131,7 @@ function TQpow(a, n) {
  * Square root - using Newton's method
  *
  * @param {number} a
- * @returns {number|false} Square root of argument 'a' or false if argument is a negative number
+ * @returns Square root of argument 'a' or false if argument is a negative number
  */
 function TQsqrt(a) {
     a = Number(a);
@@ -130,53 +152,55 @@ function TQsqrt(a) {
             }
         }
     }
-    return (a!= null)?nextguess:false;
+    return (a != null) ? nextguess : false;
 }
 
+
 /**
- * @todo Function sinus
+ * Sine
+ *
+ * @param {number} a
+ * @returns Functional value of 'a'
  */
 function TQsin(a) {
     a = Number(a);
-    let negA=false;
-    let negSin=false;
-    
-    if (a<0){
-        negA=true;
+    let negA = false;
+    let negSin = false;
+
+    if (a < 0) {
+        negA = true;
     }
-    a=Math.abs(a);
-    if (a>360){
-        while (a>360){
-            a=a-360;
+    a = Math.abs(a);
+    if (a > 360) {
+        while (a > 360) {
+            a = a - 360;
         }
     }
-    if (a==0 || a==180 || a==360){
+    if (a == 0 || a == 180 || a == 360) {
         return 0;
     }
-    if (a==90 || a==270){
+    if (a == 90 || a == 270) {
         return 1;
     }
-    if (a>90 && a<180){
-        a=180-a;
-    }
-    else if (a>180 && a<270){
-        a=a-180;
-        negSin=true;
-    }
-    else {
-        a=360-a;
-        negSin=true;
+    if (a > 90 && a < 180) {
+        a = 180 - a;
+    } else if (a > 180 && a < 270) {
+        a = a - 180;
+        negSin = true;
+    } else {
+        a = 360 - a;
+        negSin = true;
     }
 
-    a=(Math.PI/180)*a;
-    a=a-TQpow(a,3)/TQfact(3)+TQpow(a,5)/TQfact(5)-TQpow(a,7)/TQfact(7);
-    if(negSin==true){ 
-        a=0-a;
+    a = (Math.PI / 180) * a;
+    a = a - TQpow(a, 3) / TQfact(3) + TQpow(a, 5) / TQfact(5) - TQpow(a, 7) / TQfact(7);
+    if (negSin == true) {
+        a = 0 - a;
     }
-    if(negA==true){ 
-        a=0-a;
+    if (negA == true) {
+        a = 0 - a;
     }
-    return (a!= null)?a:false;
+    return (a != null) ? a : false;
 }
 
 //Export library functions

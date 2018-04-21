@@ -1,3 +1,23 @@
+/**
+ * Copyright 2018 Tough Question
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @file Main calculator screen - renderer process
+ * @author Jozef Hruška <xhrusk25@vutbr.cz>
+ * @author Patrik Strnad <xstrna11@vutbr.cz>
+ */
 'use strict'
 
 var LOG_PREFIX = "index.js: ";
@@ -23,7 +43,7 @@ var Calculator = require("../calculator");
 var calculator = new Calculator();
 
 // Toggle between colors on displayHistory and EQ elements
-function toggleClass (color) {
+function toggleClass(color) {
 	displayHistory.removeClass("red");
 	displayHistory.removeClass("green");
 	displayHistory.removeClass("blue");
@@ -75,7 +95,7 @@ function refresh() {
 }
 
 // Set OnClick listener for every key but EQ
-keys.click(function (){
+keys.click(function () {
 
 	let result;
 	switch (this.dataset.key) {
@@ -204,33 +224,29 @@ keys.click(function (){
 				refresh();
 			}
 			break;
-			
+
 		case "18":
-		
-			if (!calculator.isDecimal)
-				{
+			if (!calculator.isDecimal) {
 				calculator.isDecimal = true;
 				if (displayMain.html() == "0" || calculator.isClear == true) {
 					calculator.isClear = false;
 					displayMain.html($(this).children("span").html())
-				}
-				else displayMain.append($(this).children("span").html());
-				}
+				} else displayMain.append($(this).children("span").html());
+			}
 			break;
-			
+
 		default:
 			if (displayMain.html() == "0" || calculator.isClear == true) {
 				calculator.isClear = false;
 				displayMain.html($(this).children("span").html())
-			}
-			else displayMain.append($(this).children("span").html());
+			} else displayMain.append($(this).children("span").html());
 	}
 });
 
 // EQ button onClick listener
-EQ.click(function() {
+EQ.click(function () {
 	let result;
-	switch(calculator.getActiveOp()) {
+	switch (calculator.getActiveOp()) {
 		case 0:
 			result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 			break;
@@ -251,6 +267,6 @@ EQ.click(function() {
 });
 
 // Menu toggle onClick listener
-menuToggle.click(function() {
+menuToggle.click(function () {
 	$(this.parentNode).children("ul").slideToggle(300);
 });
