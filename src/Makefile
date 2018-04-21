@@ -2,7 +2,7 @@
 EFORGE = electron-forge
 ESTART = $(EFORGE) start
 EPACKAGE = $(EFORGE) package
-MOCHA = mocha
+QUNIT = qunit
 DOCUMENTATION = documentation build inc/** -f md > ../dokumentace.md
 MDPDF = markdown-pdf ../dokumentace.md
 
@@ -21,8 +21,7 @@ run: FORCE
 
 test: FORCE
 	@echo "Testing ${PROJECT}:"
-	@$(NODE_PATH)$(MOCHA)
-	@$(NODE_PATH)$(MOCHA)
+	@$(NODE_PATH)$(QUNIT)
 
 doc: FORCE
 	@echo "Testing ${PROJECT}:"
