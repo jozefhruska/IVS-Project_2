@@ -290,27 +290,26 @@ menuToggle.click(function () {
 	$(this.parentNode).children("ul").slideToggle(300);
 });
 
+function DoMathFunction(x)
+{
+	calculator.clearActiveOp();
+	calculator.append(x);
+	refresh();
+}
+
 //Buttons for the additional functions
 buttonSQRT.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQsqrt(displayMain.html()));
-refresh();
+DoMathFunction(MathLib.TQsqrt(displayMain.html()));
 });
 
 buttonPOW.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQpow(displayMain.html()));
-refresh();
+DoMathFunction(MathLib.TQpow(displayMain.html()));
 });
 
 buttonSIN.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQsin(displayMain.html()));
-refresh();
+DoMathFunction(MathLib.TQsin(displayMain.html()));
 });
 
 buttonFACT.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQfact(displayMain.html()));
-refresh();
+DoMathFunction(MathLib.TQfact(displayMain.html()));
 });
