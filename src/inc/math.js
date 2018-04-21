@@ -130,15 +130,17 @@ function TQsqrt(a) {
             }
         }
     }
-    return nextguess;
+    return (a!= null)?nextguess:false;
 }
 
 /**
  * @todo Function sinus
  */
 function TQsin(a) {
+    a = Number(a);
     let negA=false;
     let negSin=false;
+    
     if (a<0){
         negA=true;
     }
@@ -167,8 +169,14 @@ function TQsin(a) {
     }
 
     a=(Math.PI/180)*a;
-    a=a-TQpow(a,3)
-
+    a=a-TQpow(a,3)/TQfact(3)+TQpow(a,5)/TQfact(5)-TQpow(a,7)/TQfact(7);
+    if(negSin==true){ 
+        a=0-a;
+    }
+    if(negA==true){ 
+        a=0-a;
+    }
+    return (a!= null)?a:false;
 }
 
 //Export library functions
@@ -180,5 +188,6 @@ module.exports = {
     TQfact: TQfact,
     TQpow: TQpow,
     TQsqrt: TQsqrt,
+    TQsin: TQsin
 
 };
