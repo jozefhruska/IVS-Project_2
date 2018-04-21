@@ -42,6 +42,7 @@ class Calculator {
 	constructor() {
 		this.isClear = true;
 		this.isDecimal = false;
+		this.isPercent = false;
 		this.activeOp = new Array(4).fill(false);
 		this.history = new Array();
 	}
@@ -81,8 +82,8 @@ class Calculator {
 	clearActiveOp() {
 		for (let i = 0; i < this.activeOp.length; i++) {
 			this.activeOp[i] = false;
-		}
 
+		}
 		timber.log(LOG_PREFIX + "ClearActiveOp: " + "ok");
 	}
 

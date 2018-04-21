@@ -1,3 +1,19 @@
+function PercentCheck(x,y)
+{
+	
+	if (/^\d+(\.\d+)?%$/.test(x)) {
+    x = x.replace(/[^a-zA-Z0-9 ]/g, "");
+	if (y == "") return (x)
+	else return (x/100*y)
+	}
+	else return(x);
+}
+
+
+
+	
+
+
 /**
  * Copyright 2018 Tough Question
  *
@@ -28,6 +44,8 @@
  * @returns Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQadd(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -42,6 +60,8 @@ function TQadd(a, b) {
  * @returns Difference of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQsub(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -56,6 +76,8 @@ function TQsub(a, b) {
  * @returns Division of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQdiv(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
@@ -70,6 +92,8 @@ function TQdiv(a, b) {
  * @returns Multiplication of arguments 'a' and 'b' or false if arguments are not correct
  */
 function TQmul(a, b) {
+	a = PercentCheck(a,"");
+	b = PercentCheck(b,a);
     a = Number(a);
     b = Number(b);
 
