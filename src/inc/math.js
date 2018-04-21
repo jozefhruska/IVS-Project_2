@@ -1,17 +1,3 @@
-function PercentCheck(x,y)
-{
-	
-	if (/^\d+(\.\d+)?%$/.test(x)) {
-    x = x.replace(/[^a-zA-Z0-9 ]/g, "");
-	if (y == "") return (x)
-	else return (x/100*y)
-	}
-	else return(x);
-}
-
-
-
-	
 
 
 /**
@@ -35,6 +21,18 @@ function PercentCheck(x,y)
  * @author Tomáš Čikel <xcikel00@vutbr.cz>
  */
 'use strict'
+
+
+function PercentCheck(x,y)
+{
+	//RegExp pro odstraneni nechtenych znaku, resp. "%"
+	if (/^\d+(\.\d+)?%$/.test(x)) {
+    x = x.replace(/[^a-zA-Z0-9 ]/g, "");
+	if (y == "") return (x) else return (x/100*y)
+	}
+	else return(x);
+}
+
 
 /**
  * Addition
