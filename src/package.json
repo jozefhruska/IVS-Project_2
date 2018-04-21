@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Tough Question",
-  "license": "GNU",
+  "license": "GPL-3.0-or-later",
   "config": {
     "forge": {
       "make_targets": {
