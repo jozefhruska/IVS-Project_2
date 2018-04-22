@@ -67,34 +67,35 @@ function refresh() {
 
 	switch (calculator.history.length) {
 		case 0:
-			displayHistory.children().eq(0).hide();
-			displayHistory.children().eq(1).hide();
-			displayHistory.children().eq(2).hide();
-			break;
 		case 1:
-			displayHistory.children().eq(0).hide();
-			displayHistory.children().eq(1).hide();
-			displayHistory.children().eq(2).show();
+			displayHistory.children("#history-1").hide();
+			displayHistory.children("#history-2").hide();
+			displayHistory.children("#history-3").hide();
 			break;
 		case 2:
-			displayHistory.children().eq(2).hide();
-			displayHistory.children().eq(1).show();
-			displayHistory.children().eq(0).show();
+			displayHistory.children("#history-1").hide();
+			displayHistory.children("#history-2").hide();
+			displayHistory.children("#history-3").show();
 			break;
 		case 3:
-			displayHistory.children().eq(2).show();
-			displayHistory.children().eq(1).show();
-			displayHistory.children().eq(0).show();
+			displayHistory.children("#history-1").hide();
+			displayHistory.children("#history-2").show();
+			displayHistory.children("#history-3").show();
+			break;
+		case 4:
+			displayHistory.children("#history-1").show();
+			displayHistory.children("#history-2").show();
+			displayHistory.children("#history-3").show();
 			break;
 		default:
-			displayHistory.children().eq(2).show();
-			displayHistory.children().eq(1).show();
-			displayHistory.children().eq(0).show();
+			displayHistory.children("#history-1").show();
+			displayHistory.children("#history-2").show();
+			displayHistory.children("#history-3").show();
 	}
 
-	displayHistory.children().eq(0).html(calculator.history[calculator.history.length - 4])
-	displayHistory.children().eq(1).html(calculator.history[calculator.history.length - 3])
-	displayHistory.children().eq(2).html(calculator.history[calculator.history.length - 2])
+	displayHistory.children("#history-1").html(calculator.history[calculator.history.length - 4])
+	displayHistory.children("#history-2").html(calculator.history[calculator.history.length - 3])
+	displayHistory.children("#history-3").html(calculator.history[calculator.history.length - 2])
 
 	if (!calculator.getActiveOp()) toggleClass("");
 }

@@ -581,7 +581,8 @@ body {
         padding: 6px 10px;
         margin-right: 5px;
         border-radius: 8px;
-        color: #fff !important; }
+        color: #fff !important;
+        background: #3B4852; }
         .page-calculator .page-top .display .display-history span:hover {
           cursor: pointer;
           opacity: 1.0 !important; }
