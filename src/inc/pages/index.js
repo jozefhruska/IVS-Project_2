@@ -37,10 +37,10 @@ const EQ = $("#EQ");
 const displayMain = $("#display-main");
 const displayHistory = $("#display-history");
 const menuToggle = $("#menu-toggle");
-const function1 = $("#1");
-const function2 = $("#2");
-const function3 = $("#3");
-const function4 = $("#4");
+const buttonSQRT = $("#1");
+const buttonPOW = $("#2");
+const buttonSIN = $("#3");
+const buttonFACT = $("#4");
 
 
 // Initialize calculator
@@ -290,24 +290,26 @@ menuToggle.click(function () {
 	$(this.parentNode).children("ul").slideToggle(300);
 });
 
-function1.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQsqrt(displayMain.html()));
-refresh();
+function DoMathFunction(x)
+{
+	calculator.clearActiveOp();
+	calculator.append(x);
+	refresh();
+}
+
+//Buttons for the additional functions
+buttonSQRT.click(function() {
+DoMathFunction(MathLib.TQsqrt(displayMain.html()));
 });
-/*function2.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQpow(displayMain.html()));
-refresh();
+
+buttonPOW.click(function() {
+DoMathFunction(MathLib.TQpow(displayMain.html()));
 });
-*/
-function3.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQsin(displayMain.html()));
-refresh();
+
+buttonSIN.click(function() {
+DoMathFunction(MathLib.TQsin(displayMain.html()));
 });
-function4.click(function() {
-calculator.clearActiveOp();
-calculator.append(MathLib.TQfact(displayMain.html()));
-refresh();
+
+buttonFACT.click(function() {
+DoMathFunction(MathLib.TQfact(displayMain.html()));
 });
