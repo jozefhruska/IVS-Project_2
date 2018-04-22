@@ -64,11 +64,21 @@ function refresh() {
 	calculator.isPercent = false;
 	calculator.cache = null;
 
-	if (calculator.history.length > 0) displayMain.html(calculator.history[calculator.history.length - 1]);
-	else {
+	if (calculator.history.length > 0) {
+		let number = Number.parseFloat(calculator.history[calculator.history.length - 1]);
+		if (Math.ceil(Math.log(number + 1) / Math.LN10) > 8) number = number.toExponential(3);
+		displayMain.html(number);
+	} else {
 		displayMain.html(0);
 		keys.eq(0).children("span").html("C");
 	}
+
+	var history1 = Number.parseFloat(calculator.history[calculator.history.length - 4]);
+	var history2 = Number.parseFloat(calculator.history[calculator.history.length - 3]);
+	var history3 = Number.parseFloat(calculator.history[calculator.history.length - 2]);
+	history1 = Math.abs(history1) > 999999 ? history1.toExponential(3) : history1;
+	history2 = Math.abs(history2) > 999999 ? history2.toExponential(3) : history2;
+	history3 = Math.abs(history3) > 999999 ? history3.toExponential(3) : history3;
 
 	switch (calculator.history.length) {
 		case 0:
@@ -81,26 +91,35 @@ function refresh() {
 			displayHistory.children("#history-1").hide();
 			displayHistory.children("#history-2").hide();
 			displayHistory.children("#history-3").show();
+
+			if (history3 != null) displayHistory.children("#history-3").html(history3);
 			break;
 		case 3:
 			displayHistory.children("#history-1").hide();
 			displayHistory.children("#history-2").show();
 			displayHistory.children("#history-3").show();
+
+			if (history2 != null) displayHistory.children("#history-2").html(history2);
+			if (history3 != null) displayHistory.children("#history-3").html(history3);
 			break;
 		case 4:
 			displayHistory.children("#history-1").show();
 			displayHistory.children("#history-2").show();
 			displayHistory.children("#history-3").show();
+
+			if (history1 != null) displayHistory.children("#history-1").html(history1);
+			if (history2 != null) displayHistory.children("#history-2").html(history2);
+			if (history3 != null) displayHistory.children("#history-3").html(history3);
 			break;
 		default:
 			displayHistory.children("#history-1").show();
 			displayHistory.children("#history-2").show();
 			displayHistory.children("#history-3").show();
-	}
 
-	displayHistory.children("#history-1").html(calculator.history[calculator.history.length - 4])
-	displayHistory.children("#history-2").html(calculator.history[calculator.history.length - 3])
-	displayHistory.children("#history-3").html(calculator.history[calculator.history.length - 2])
+			if (history1 != null) displayHistory.children("#history-1").html(history1);
+			if (history2 != null) displayHistory.children("#history-2").html(history2);
+			if (history3 != null) displayHistory.children("#history-3").html(history3);
+	}
 
 	if (!calculator.getActiveOp()) toggleClass("");
 }
