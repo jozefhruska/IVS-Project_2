@@ -17,7 +17,7 @@ install: FORCE
 
 run: FORCE
 	@echo "Starting ${PROJECT}:"
-	@$(ESTART)
+	@$(NODE_PATH)$(ESTART)
 
 test: FORCE
 	@echo "Testing ${PROJECT}:"
