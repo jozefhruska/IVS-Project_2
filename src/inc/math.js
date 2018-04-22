@@ -108,6 +108,7 @@ function TQmul(a, b) {
  */
 function TQfact(a) {
     a = Number(a);
+    if(a<=50){
 
     if (a != null && a >= 0) {
         for (let i = a - 1; i > 0; i--) {
@@ -115,6 +116,8 @@ function TQfact(a) {
         }
         return a;
     } else return false;
+
+}else return false;
 
 }
 
@@ -201,21 +204,34 @@ function TQsin(a) {
     if (a == 0 || a == 180 || a == 360) {
         return 0;
     }
-    if (a == 90 || a == 270) {
+    if (a == 90) {
+        if(negA==true){ 
+            return -1
+        }
+        else{
         return 1;
+        }
+    }
+    if(a == 270){ 
+        if(negA==true){ 
+            return 1;
+        }
+        else{
+        return -1;
+        }
     }
     if (a > 90 && a < 180) {
         a = 180 - a;
     } else if (a > 180 && a < 270) {
         a = a - 180;
         negSin = true;
-    } else {
+    } else if(a>270 && a<360){
         a = 360 - a;
         negSin = true;
     }
 
     a = (Math.PI / 180) * a;
-    a = a - TQpow(a, 3) / TQfact(3) + TQpow(a, 5) / TQfact(5) - TQpow(a, 7) / TQfact(7);
+    a = a - TQpow(a, 3) / TQfact(3) + TQpow(a, 5) / TQfact(5) - TQpow(a, 7) / TQfact(7) + TQpow(a,9) / TQfact(9) - TQpow(a,11) / TQfact(11);
     if (negSin == true) {
         a = 0 - a;
     }
@@ -223,14 +239,7 @@ function TQsin(a) {
         a = 0 - a;
     }
 
-    a = (Math.PI / 180) * a;
-    a = a - TQpow(a, 3) / TQfact(3) + TQpow(a, 5) / TQfact(5) - TQpow(a, 7) / TQfact(7);
-    if (negSin == true) {
-        a = 0 - a;
-    }
-    if (negA == true) {
-        a = 0 - a;
-    }
+    
     return (a != null) ? a : false;
 }
 
@@ -255,8 +264,11 @@ function TQcos(a) {
         a = a - 360;
     }
 
-    if (a == 0 || a == 180 || a == 360) {
+    if (a == 0 || a == 360) {
         return 1;
+    }
+    if(a ==180){
+        return -1;
     }
     if (a == 90 || a == 270) {
         return 0;
@@ -267,18 +279,56 @@ function TQcos(a) {
     } else if (a > 180 && a < 270) {
         a = a - 180;
         negCos = true;
-    } else {
+    } else if(a>270 && a<360) {
         a = 360 - a;
     }
     a = (Math.PI / 180) * a;
-    a = 1 - TQpow(a, 2) / TQfact(2) - TQpow(a, 4) / TQfact(4) - TQpow(a, 6) / TQfact(6);
-    if (negCos == true) {
+    a = 1 - TQpow(a, 2) / TQfact(2) + TQpow(a, 4) / TQfact(4) - TQpow(a, 6) / TQfact(6) + TQpow(a,8) / TQfact(8) - TQpow(a,10) / TQfact(10);
+    if (negCos == true) { 
         a = 0 - a;
     }
     if (negA == true) {
         a = 0 - a;
     }
     return (a != null) ? a : false;
+
+}
+
+/**
+ * Tangens
+ * 
+ * @param {number} a 
+ * @returns Tangens of argument 'a' or false if a given angle is undefined
+ */
+
+function TQtan(a){
+    let negA=false;
+    a=Number(a);
+    if (a < 0){
+        negA=true;
+    }
+    a = Math.abs(a);
+    while(a > 360){
+        a=a-360;
+    }
+    if(a==0 || a==180 || a==360){
+        return 0;
+    }
+    else if (a==45){
+        if(negA==true){
+            return -1;
+        }
+        else{
+        return 1;
+        } 
+    }
+    else if(a==90 || a==270){
+        return false;
+    }
+    else{
+        a=TQsin(a)/TQcos(a);
+        return a;
+    }
 
 }
 
@@ -292,5 +342,6 @@ module.exports = {
     TQpow: TQpow,
     TQsqrt: TQsqrt,
     TQsin: TQsin,
-    TQcos: TQcos
+    TQcos: TQcos,
+    TQtan: TQtan
 };
