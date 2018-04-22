@@ -37,11 +37,7 @@ const EQ = $("#EQ");
 const displayMain = $("#display-main");
 const displayHistory = $("#display-history");
 const menuToggle = $("#menu-toggle");
-const buttonSQRT = $("#1");
-const buttonPOW = $("#2");
-const buttonSIN = $("#3");
-const buttonFACT = $("#4");
-
+const menuKeys = $("*[data-menu]");
 
 // Initialize calculator
 var Calculator = require("../calculator");
@@ -66,6 +62,7 @@ function toggleClass(color) {
 function refresh() {
 	calculator.isDecimal = false;
 	calculator.isPercent = false;
+	calculator.cache = null;
 	displayMain.html(calculator.history[calculator.history.length - 1]);
 
 	switch (calculator.history.length) {
@@ -98,6 +95,14 @@ function refresh() {
 	displayHistory.children().eq(0).html(calculator.history[calculator.history.length - 4])
 	displayHistory.children().eq(1).html(calculator.history[calculator.history.length - 3])
 	displayHistory.children().eq(2).html(calculator.history[calculator.history.length - 2])
+
+	if (!calculator.getActiveOp()) toggleClass("");
+}
+
+function DoMathFunction(x) {
+	calculator.clearActiveOp();
+	calculator.append(x);
+	refresh();
 }
 
 // Set OnClick listener for every key but EQ
@@ -115,16 +120,14 @@ keys.click(function () {
 			displayMain.html(displayMain.html() * -1)
 			break;
 		case "2":
-			if (!calculator.isPercent)
-				{
+			if (!calculator.isPercent) {
 				calculator.isDecimal = true;
 				calculator.isPercent = true;
 				if (displayMain.html() == "0" || calculator.isClear == true) {
 					calculator.isClear = false;
 					displayMain.html($(this).children("span").html())
-				}
-				else displayMain.append($(this).children("span").html());
-				}
+				} else displayMain.append($(this).children("span").html());
+			}
 			break;
 			break;
 		case "3":
@@ -138,18 +141,24 @@ keys.click(function () {
 				if (!calculator.isClear) {
 					switch (calculator.getActiveOp()) {
 						case 0:
-							calculator.append(MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 1:
-							calculator.append(MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQmul(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 2:
-							calculator.append(MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQsub(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 3:
-							calculator.append(MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQadd(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 					}
+
+					calculator.append(result);
 				}
 
 				calculator.setActiveOp(0);
@@ -167,18 +176,24 @@ keys.click(function () {
 				if (!calculator.isClear) {
 					switch (calculator.getActiveOp()) {
 						case 0:
-							calculator.append(MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 1:
-							calculator.append(MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQmul(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 2:
-							calculator.append(MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQsub(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 3:
-							calculator.append(MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQadd(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 					}
+
+					calculator.append(result);
 				}
 
 				calculator.setActiveOp(1);
@@ -196,18 +211,24 @@ keys.click(function () {
 				if (!calculator.isClear) {
 					switch (calculator.getActiveOp()) {
 						case 0:
-							calculator.append(MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 1:
-							calculator.append(MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQmul(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 2:
-							calculator.append(MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQsub(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 3:
-							calculator.append(MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQadd(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 					}
+
+					calculator.append(result);
 				}
 
 				calculator.setActiveOp(2);
@@ -225,18 +246,24 @@ keys.click(function () {
 				if (!calculator.isClear) {
 					switch (calculator.getActiveOp()) {
 						case 0:
-							calculator.append(MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 1:
-							calculator.append(MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQmul(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 2:
-							calculator.append(MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQsub(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 						case 3:
-							calculator.append(MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html()));
+							if (calculator.cache != null) result = MathLib.TQadd(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+							else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
 							break;
 					}
+
+					calculator.append(result);
 				}
 
 				calculator.setActiveOp(3);
@@ -265,23 +292,30 @@ keys.click(function () {
 // EQ button onClick listener
 EQ.click(function () {
 	let result;
+
+	if (calculator != null) result = MathLib.TQpow(calculator.cache, displayMain.html());
+
 	switch (calculator.getActiveOp()) {
 		case 0:
-			result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
+			if (calculator.cache != null) result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+			else result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], displayMain.html());
 			break;
 		case 1:
-			result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
+			if (calculator.cache != null) result = MathLib.TQmul(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+			else result = MathLib.TQmul(calculator.history[calculator.history.length - 1], displayMain.html());
 			break;
 		case 2:
-			result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
+			if (calculator.cache != null) result = MathLib.TQsub(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+			else result = MathLib.TQsub(calculator.history[calculator.history.length - 1], displayMain.html());
 			break;
 		case 3:
-			result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
+			if (calculator.cache != null) result = MathLib.TQadd(calculator.history[calculator.history.length - 1], MathLib.TQpow(calculator.cache, displayMain.html()));
+			else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], displayMain.html());
 			break;
 	}
 
-	calculator.clearActiveOp();
 	calculator.append(result);
+	calculator.clearActiveOp();
 	refresh();
 });
 
@@ -290,26 +324,71 @@ menuToggle.click(function () {
 	$(this.parentNode).children("ul").slideToggle(300);
 });
 
-function DoMathFunction(x)
-{
-	calculator.clearActiveOp();
-	calculator.append(x);
-	refresh();
-}
+// Menu - list onClick listeners
+menuKeys.click(function () {
+	let result;
 
-//Buttons for the additional functions
-buttonSQRT.click(function() {
-DoMathFunction(MathLib.TQsqrt(displayMain.html()));
-});
+	switch (this.dataset.menu) {
+		case "1":
+			result = MathLib.TQsqrt(displayMain.html());
+			break;
+		case "3":
+			result = MathLib.TQsin(displayMain.html());
+			break;
+		case "4":
+			result = MathLib.TQcos(displayMain.html());
+			break;
+		case "5":
+			result = MathLib.TQfact(displayMain.html());
+			break;
+	}
 
-buttonPOW.click(function() {
-DoMathFunction(MathLib.TQpow(displayMain.html()));
-});
+	// POW
+	if (this.dataset.menu == "2") {
+		if (calculator.cache == null) {
+			calculator.cache = displayMain.html();
+			calculator.isClear = true;
+		} else {
+			result = MathLib.TQpow(calculator.cache, displayMain.html());
+			switch (calculator.getActiveOp()) {
+				case 0:
+					result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 1:
+					result = MathLib.TQmul(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 2:
+					result = MathLib.TQsub(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 3:
+					result = MathLib.TQadd(calculator.history[calculator.history.length - 1], result);
+					break;
+			}
 
-buttonSIN.click(function() {
-DoMathFunction(MathLib.TQsin(displayMain.html()));
-});
+			calculator.append(result);
+			calculator.clearActiveOp();
+			refresh();
+		}
+	} else {
+		if (calculator.getActiveOp()) {
+			switch (calculator.getActiveOp()) {
+				case 0:
+					result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 1:
+					result = MathLib.TQmul(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 2:
+					result = MathLib.TQsub(calculator.history[calculator.history.length - 1], result);
+					break;
+				case 3:
+					result = MathLib.TQadd(calculator.history[calculator.history.length - 1], result);
+					break;
+			}
+		}
 
-buttonFACT.click(function() {
-DoMathFunction(MathLib.TQfact(displayMain.html()));
+		calculator.append(result);
+		calculator.clearActiveOp();
+		refresh();
+	}
 });

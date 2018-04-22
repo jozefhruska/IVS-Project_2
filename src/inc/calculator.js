@@ -43,6 +43,7 @@ class Calculator {
 		this.isClear = true;
 		this.isDecimal = false;
 		this.isPercent = false;
+		this.cache = null;
 		this.activeOp = new Array(4).fill(false);
 		this.history = new Array();
 	}
@@ -55,8 +56,10 @@ class Calculator {
 	clear() {
 		this.isClear = true;
 		this.isDecimal = false;
+		this.isPercent = false;
+		this.cache = null;
 		this.activeOp = [false, false, false, false];
-		this.history = new Array();
+		this.history = []
 	}
 
 	/**
@@ -80,10 +83,7 @@ class Calculator {
 	 * @memberof Calculator
 	 */
 	clearActiveOp() {
-		for (let i = 0; i < this.activeOp.length; i++) {
-			this.activeOp[i] = false;
-
-		}
+		this.activeOp = [false, false, false, false];
 		timber.log(LOG_PREFIX + "ClearActiveOp: " + "ok");
 	}
 

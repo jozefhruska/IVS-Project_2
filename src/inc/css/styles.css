@@ -577,6 +577,7 @@ body {
       .page-calculator .page-top .display .display-history.yellow span {
         background: #FDD759; }
       .page-calculator .page-top .display .display-history span {
+        display: none;
         padding: 6px 10px;
         margin-right: 5px;
         border-radius: 8px;
@@ -585,13 +586,10 @@ body {
           cursor: pointer;
           opacity: 1.0 !important; }
       .page-calculator .page-top .display .display-history span:first-child {
-        display: none;
         opacity: 0.2; }
       .page-calculator .page-top .display .display-history span:nth-child(2) {
-        display: none;
         opacity: 0.4; }
       .page-calculator .page-top .display .display-history span:nth-child(3) {
-        display: none;
         opacity: 0.6; }
 
 .page-calculator .page-bottom {
@@ -708,3 +706,5 @@ body {
       height: 50px;
       line-height: 50px;
       text-align: center; }
+      .app-menu > ul > li:hover {
+        cursor: pointer !important; }
