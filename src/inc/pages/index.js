@@ -63,7 +63,12 @@ function refresh() {
 	calculator.isDecimal = false;
 	calculator.isPercent = false;
 	calculator.cache = null;
-	displayMain.html(calculator.history[calculator.history.length - 1]);
+
+	if (calculator.history.length > 0) displayMain.html(calculator.history[calculator.history.length - 1]);
+	else {
+		displayMain.html(0);
+		keys.eq(0).children("span").html("C");
+	}
 
 	switch (calculator.history.length) {
 		case 0:
@@ -100,22 +105,20 @@ function refresh() {
 	if (!calculator.getActiveOp()) toggleClass("");
 }
 
-function DoMathFunction(x) {
-	calculator.clearActiveOp();
-	calculator.append(x);
-	refresh();
-}
-
 // Set OnClick listener for every key but EQ
 keys.click(function () {
 
 	let result;
 	switch (this.dataset.key) {
 		case "0":
-			toggleClass("");
-			displayMain.html(0);
-			calculator.clear();
-			refresh();
+			if (!calculator.isClear) {
+				$(this).children("span").html("AC")
+				displayMain.html("0");
+				calculator.isClear = true;
+			} else {
+				calculator.clear();
+				refresh();
+			}
 			break;
 		case "1":
 			displayMain.html(displayMain.html() * -1)

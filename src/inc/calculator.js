@@ -60,6 +60,8 @@ class Calculator {
 		this.cache = null;
 		this.activeOp = [false, false, false, false];
 		this.history = []
+
+		timber.log(LOG_PREFIX + "Clear: " + "ok");
 	}
 
 	/**
