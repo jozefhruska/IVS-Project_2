@@ -396,3 +396,22 @@ menuKeys.click(function () {
 		refresh();
 	}
 });
+
+// History onClick listeners
+$("#history-1").click(function () {
+	calculator.clearActiveOp();
+	calculator.undo(3);
+	refresh();
+});
+
+$("#history-2").click(function () {
+	calculator.clearActiveOp();
+	calculator.undo(2);
+	refresh();
+});
+
+$("#history-3").click(function () {
+	calculator.clearActiveOp();
+	calculator.undo(1);
+	refresh();
+});

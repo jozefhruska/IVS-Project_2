@@ -113,7 +113,18 @@ class Calculator {
 	append(value) {
 		this.isClear = true;
 		this.history.push(value);
-		timber.log(LOG_PREFIX + "Append \"" + value + "\" on index " + (this.history.length - 1));
+		timber.log(LOG_PREFIX + "Append: \"" + value + "\" on index " + (this.history.length - 1));
+	}
+
+	undo(value) {
+		this.isClear = true;
+
+		if (value != null && value > 0) {
+			for (let i = value; i > 0; i--) {
+				timber.log(LOG_PREFIX + "Undo: \"" + this.history[(this.history.length - 1)] + "\" on index " + (this.history.length - 1));
+				this.history.pop();
+			}
+		}
 	}
 }
 
