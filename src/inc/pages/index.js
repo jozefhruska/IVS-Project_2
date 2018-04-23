@@ -31,7 +31,6 @@ window.Tether = require('tether')
 window.Bootstrap = require('bootstrap')
 const timber = require('electron-timber');
 import fitty from 'fitty';
-import { SSL_OP_ALLOW_UNSAFE_LEGACY_RENEGOTIATION } from "constants";
 
 // Get all elements
 const keys = $("*[data-key]");
@@ -72,7 +71,7 @@ function parseAndTrim(number, digits = 6) {
 function opAction(opid) {
 	let result;
 
-	if (!calculator.getActiveOp() && !calculator.history.length) calculator.append(parseAndTrim(displayMain.html(), 14));
+	if (calculator.getActiveOp() == -1 && !calculator.history.length) calculator.append(parseAndTrim(displayMain.html(), 14));
 	else {
 		if (!calculator.isClear) {
 			switch (calculator.getActiveOp()) {
@@ -93,8 +92,11 @@ function opAction(opid) {
 					else result = MathLib.TQadd(calculator.history[calculator.history.length - 1], parseAndTrim(displayMain.html(), 14));
 					break;
 			}
-			
-			calculator.append(result);
+
+			if (isNaN(result)) {
+				calculator.isError = true;
+				timber.log(LOG_PREFIX + "error");
+			} else calculator.append(result);
 		}
 	}
 
@@ -108,13 +110,18 @@ function refresh() {
 	calculator.isPercent = false;
 	calculator.cache = null;
 
+	if (calculator.isError) {
+		displayMain.html("Error");
+		return;
+	}
+
 	displayMain.css("font-size", "55px");
 
 	if (calculator.history.length) displayMain.html(parseAndTrim(calculator.history[calculator.history.length - 1], 8));
 	else {
 		displayMain.html(0);
 		keys.eq(0).children("span").html("C");
-	 }
+	}
 
 	switch (calculator.history.length) {
 		case 0:
@@ -157,7 +164,7 @@ function refresh() {
 			displayHistory.children("#history-3").html(parseAndTrim(calculator.history[calculator.history.length - 2]));
 	}
 
-	if (!calculator.getActiveOp()) toggleClass("");
+	if (calculator.getActiveOp() == -1) toggleClass("");
 }
 
 // Set OnClick listener for every key but EQ
@@ -190,6 +197,7 @@ keys.click(function () {
 			break;
 			break;
 		case "3":
+			toggleClass("red");
 			opAction(0);
 			break;
 		case "7":
@@ -251,7 +259,10 @@ EQ.click(function () {
 			break;
 	}
 
-	calculator.append(result);
+	if (isNaN(result)) {
+		calculator.isError = true;
+		timber.log(LOG_PREFIX + "error");
+	} else calculator.append(result);
 	calculator.clearActiveOp();
 	refresh();
 });
@@ -312,7 +323,7 @@ menuKeys.click(function () {
 			refresh();
 		}
 	} else {
-		if (calculator.getActiveOp()) {
+		if (calculator.getActiveOp() != -1) {
 			switch (calculator.getActiveOp()) {
 				case 0:
 					result = MathLib.TQdiv(calculator.history[calculator.history.length - 1], result);

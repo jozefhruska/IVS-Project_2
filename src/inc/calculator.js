@@ -43,6 +43,7 @@ class Calculator {
 		this.isClear = true;
 		this.isDecimal = false;
 		this.isPercent = false;
+		this.isError = false;
 		this.cache = null;
 		this.activeOp = new Array(4).fill(false);
 		this.history = new Array();
@@ -57,6 +58,7 @@ class Calculator {
 		this.isClear = true;
 		this.isDecimal = false;
 		this.isPercent = false;
+		this.isError = false;
 		this.cache = null;
 		this.activeOp = [false, false, false, false];
 		this.history = []
@@ -101,7 +103,7 @@ class Calculator {
 			if (this.activeOp[i]) return i;
 		}
 
-		return false;
+		return -1;
 	}
 
 	/**
