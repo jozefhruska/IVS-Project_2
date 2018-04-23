@@ -711,3 +711,6 @@ body {
       text-align: center; }
       .app-menu > ul > li:hover {
         cursor: pointer !important; }
+      .app-menu > ul > li.active {
+        font-weight: 700;
+        background-color: #556470; }

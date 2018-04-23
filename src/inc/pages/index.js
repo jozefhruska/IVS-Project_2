@@ -135,6 +135,7 @@ keys.click(function () {
 				$(this).children("span").html("AC")
 				displayMain.html("0");
 				calculator.isClear = true;
+				calculator.isDecimal = false;
 				displayMain.css("font-size", "65px");
 			} else {
 				calculator.clear();
@@ -318,7 +319,10 @@ keys.click(function () {
 EQ.click(function () {
 	let result;
 
-	if (calculator != null) result = MathLib.TQpow(calculator.cache, parseAndTrim(displayMain.html(), 14));
+	if (calculator.cache != null) {
+		result = MathLib.TQpow(calculator.cache, parseAndTrim(displayMain.html(), 14));
+		menuKeys.eq(1).toggleClass("active");
+	}
 
 	switch (calculator.getActiveOp()) {
 		case 0:
@@ -373,6 +377,8 @@ menuKeys.click(function () {
 
 	// POW
 	if (this.dataset.menu == "2") {
+		$(this).toggleClass("active");
+
 		if (calculator.cache == null) {
 			calculator.cache = parseAndTrim(displayMain.html(), 14);
 			calculator.isClear = true;

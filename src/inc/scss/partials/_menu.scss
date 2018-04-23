@@ -42,6 +42,11 @@
 			&:hover {
 				cursor: pointer !important;
 			}
+
+			&.active {
+				font-weight: 700;
+				background-color: $color__menu_ul_background_active;
+			}
 		}
 	}
 }
