@@ -324,6 +324,8 @@ function TQcos(a) {
 
 function TQtan(a){
     let negA=false;
+    let negTan=false;
+    let result=0;
     a=Number(a);
 
     if (a < 0){
@@ -333,26 +335,48 @@ function TQtan(a){
     while(a > 360){
         a=a-360;
     }
-    if(a==0 || a==180 || a==360){
-        return 0;
-    }
-    else if (a==45){
-        if(negA==true){
-            return -1;
-        }
-        else{
-        return 1;
-        } 
-    }
-    else if(a==90 || a==270){
+    if (a==90 || a==270){
         return false;
     }
-    else{
-        a=TQsin(a)/TQcos(a);
-        a=a.toPrecision(13);
+    if (a==0 || a==180 || a==360){
+        return 0;
     }
-    if (negA==true){
-        a=0-a;
+    if (a==45 || a==225){
+        if (negA==true){
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+    if (a==135 || a==315){
+        if (negA==true){
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+    if (a > 90 && a < 180) {
+        a = 180 - a;
+        negTan = true;
+    } else if (a > 180 && a < 270) {
+        a = a - 180;
+    } else if(a>270 && a<360) {
+        a = 360 - a;
+        negTan = true;
+    }
+    a = (Math.PI / 180) * a;
+    for (let i=20;i>1;i--)
+	{
+		result=(a*a)/((2*i-1)-result);
+	}
+	result=a/(1-result);
+	a=result;
+    a=a.toPrecision(14);
+    if (negTan == true) { 
+        a = 0 - a;
+    }
+    if (negA == true) {
+        a = 0 - a;
     }
     return (a != null) ? a : false;
 }

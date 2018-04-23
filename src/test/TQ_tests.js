@@ -404,13 +404,13 @@ QUnit.test("Cosinus test", function(assert)
 QUnit.test("Tangent test",function(assert)
 {
 	let tan30=MathLib.TQsqrt(3)/3;
-	tan30=tan30.toPrecision(13);
+	tan30=tan30.toPrecision(14);
 	let neg30=MathLib.TQsqrt(3)/(-3);
-	neg30=neg30.toPrecision(13);
+	neg30=neg30.toPrecision(14);
 	let tan60=MathLib.TQsqrt(3);
-	tan60=tan60.toPrecision(13);
+	tan60=tan60.toPrecision(14);
 	let neg60=MathLib.TQsqrt(3)*(-1);
-	neg60=neg60.toPrecision(13);
+	neg60=neg60.toPrecision(14);
 	
 	assert.strictEqual(MathLib.TQtan(0),0,"Zero test 1");
 	assert.strictEqual(MathLib.TQtan(180),0,"Zero test 2");
