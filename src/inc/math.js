@@ -49,7 +49,7 @@ function TQadd(a, b) {
     a = Number(a);
     b = Number(b);
 
-    return ((a != null && b != null) ? a + b : false)
+    return ((a != null && b != null) ? a + b : undefined)
 }
 
 /**
@@ -66,7 +66,7 @@ function TQsub(a, b) {
     a = Number(a);
     b = Number(b);
 
-    return ((a != null && b != null) ? a - b : false)
+    return ((a != null && b != null) ? a - b : undefined)
 }
 
 /**
@@ -83,7 +83,7 @@ function TQdiv(a, b) {
     a = Number(a);
     b = Number(b);
 
-    return ((a != null && b != null && b != 0) ? a / b : false)
+    return ((a != null && b != null && b != 0) ? a / b : undefined)
 }
 
 /**
@@ -100,7 +100,7 @@ function TQmul(a, b) {
     a = Number(a);
     b = Number(b);
 
-    return ((a != null && b != null) ? a * b : false)
+    return ((a != null && b != null) ? a * b : undefined)
 }
 
 /**
@@ -120,7 +120,7 @@ function TQfact(a) {
             a = a * i;
         }
         return a;
-    } else return false;
+    } else return undefined;
 }
 
 /**
@@ -144,17 +144,17 @@ function TQpow(a, n) {
             for (let i = n; i > 1; i--) {
                 b = b * a;
                 if (b>TQfact(50)){
-                    return false;
+                    return undefined;
                 }
             }
         } else if (n < 0) {
             if (a == 0) {
-                return false;
+                return undefined;
             }
             for (let i = Math.abs(n); i > 1; i--) {
                 b = b * a;
                 if (b>TQfact(50)){
-                    return false;
+                    return undefined;
                 }
             }
             b = 1 / b;
@@ -162,7 +162,7 @@ function TQpow(a, n) {
             b = 1;
         }
         return b;
-    } else return false;
+    } else return undefined;
 }
 
 /**
@@ -178,7 +178,7 @@ function TQsqrt(a) {
     let nextguess;
     let num_itr = 0;
 
-    if (a != null && a < 0) return false;
+    if (a != null && a < 0) return undefined;
     else {
         if (a == 0) {
             nextguess = 0;
@@ -190,60 +190,36 @@ function TQsqrt(a) {
             }
         }
     }
-    return (a != null) ? nextguess : false;
+    return (a != null) ? nextguess : undefined;
 }
 
 /**
  * Sinus 
  * 
  * @param {number} a
- * @returns Sin of argument 'a' or flase if no argument was given 
+ * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
+ * @returns Sin of argument 'a' or flase if no argument was given
  */
 
-function TQsin(a) {
+
+function TQsin(a,b) {
     a = Number(a);
-    let negA = false;
-    let negSin = false;
     let mOne = 2;
     let result = 0;
 
-    if (a < 0) {
-        negA = true;
-    }
-    a = Math.abs(a);
-    while (a > 360) {
-        a = a - 360;
-    }
-    if (a == 0 || a == 180 || a == 360) {
-        return 0;
-    }
-    if (a == 90) {
-        if(negA==true){ 
-            return -1
+    if(b==true){
+        a = (Math.PI / 180) * a;
+        while(a>(Math.PI*2)){ 
+            a-=Math.PI*2;
         }
-        else{
-            return 1;
-        }
-    }
-    if(a == 270){ 
-        if(negA==true){ 
-            return 1;
-        }
-        else{
-            return -1;
-        }
-    }
-    if (a > 90 && a < 180) {
-        a = 180 - a;
-    } else if (a > 180 && a < 270) {
-        a = a - 180;
-        negSin = true;
-    } else if(a>270 && a<360){
-        a = 360 - a;
-        negSin = true;
+
     }
 
-    a = (Math.PI / 180) * a;
+    if(a==Math.PI || a==2*Math.PI){
+        return 0;
+    } 
+
+   
     for (let i=1;i<70;i+=2){
         result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
         mOne++;
@@ -256,115 +232,79 @@ function TQsin(a) {
     if (negA == true) {
         a = 0 - a;
     }
-    return (a != null) ? a : false;
+    return (a != null) ? a : undefined;
 }
 
 /**
  * Cosinus
  * 
  * @param {number} a 
+ * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
  * @returns Cosinus of argument 'a' or false if now argument was given
  */
 
-function TQcos(a) {
+function TQcos(a,b) {
     a = Number(a);
-    let negA = false;
-    let negCos = false;
+    b=true;
     let mOne = 2;
     let result = 0;
-
-    if (a < 0) {
-        negA = true;
-    }
-    a = Math.abs(a);
-    while (a > 360) {
-        a = a - 360;
+    if(b==true){
+        a = (Math.PI / 180) * a;
+        while(a>(Math.PI*2)){ 
+            a=a-Math.PI*2;
+        }
     }
 
-    if (a == 0 || a == 360) {
-        return 1;
-    }
-    if(a ==180){
-        return -1;
-    }
-    if (a == 90 || a == 270) {
+    if(a==Math.PI/2 || a==(3*Math.PI)/2){
         return 0;
-    }
-    if (a > 90 && a < 180) {
-        a = 180 - a;
-        negCos = true;
-    } else if (a > 180 && a < 270) {
-        a = a - 180;
-        negCos = true;
-    } else if(a>270 && a<360) {
-        a = 360 - a;
-    }
-    a = (Math.PI / 180) * a;
-    for (let i=0;i<71;i+=2){
+    } 
+
+
+        for (let i=0;i<71;i+=2){
         result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
         mOne++;
-    }
-    a=result;
-    a=a.toPrecision(14);
-    if (negCos == true) { 
-        a = 0 - a;
-    }
-    if (negA == true) {
-        a = 0 - a;
-    }
-    return (a != null) ? a : false;
+        }
+        a=result;
+        a=a.toPrecision(14);
+        if (negCos == true) { 
+            a = 0 - a;
+        }
+        if (negA == true) {
+            a = 0 - a;
+        }
+        return (a != null) ? a : undefined;
+    
 }
 
 /**
  * Tangens
  * 
  * @param {number} a 
+ * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
  * @returns Tangens of argument 'a' or false if a given angle is undefined
  */
 
-function TQtan(a){
+function TQtan(a,b){
     let negA=false;
     let negTan=false;
+    b=true;
     let result=0;
     a=Number(a);
+    if(b==true){
+        a = (Math.PI / 180) * a;
+        while(a>(Math.PI*2)){ 
+            a=a-Math.PI*2;
+        }
 
-    if (a < 0){
-        negA=true;
     }
-    a = Math.abs(a);
-    while(a > 360){
-        a=a-360;
-    }
-    if (a==90 || a==270){
+    if(a==Math.PI/2 || a==(3*Math.PI)/2){
         return false;
     }
-    if (a==0 || a==180 || a==360){
+    else if(a==Math.PI || a==(Math.PI*2)){
         return 0;
     }
-    if (a==45 || a==225){
-        if (negA==true){
-            return -1;
-        } else {
-            return 1;
-        }
-    }
-    if (a==135 || a==315){
-        if (negA==true){
-            return 1;
-        } else {
-            return -1;
-        }
-    }
-    if (a > 90 && a < 180) {
-        a = 180 - a;
-        negTan = true;
-    } else if (a > 180 && a < 270) {
-        a = a - 180;
-    } else if(a>270 && a<360) {
-        a = 360 - a;
-        negTan = true;
-    }
-    a = (Math.PI / 180) * a;
+
+
     for (let i=20;i>1;i--)
 	{
 		result=(a*a)/((2*i-1)-result);
@@ -378,7 +318,7 @@ function TQtan(a){
     if (negA == true) {
         a = 0 - a;
     }
-    return (a != null) ? a : false;
+    return (a != null) ? a : undefined;
 }
 
 //Export library functions
