@@ -206,7 +206,9 @@ function TQsin(a,b) {
     a = Number(a);
     let mOne = 2;
     let result = 0;
-
+    if(b==NULL){
+        b=true;
+    }
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
@@ -226,12 +228,7 @@ function TQsin(a,b) {
     }
     a=result;
     a=a.toPrecision(14);
-    if (negSin == true) {
-        a = 0 - a;
-    }
-    if (negA == true) {
-        a = 0 - a;
-    }
+
     return (a != null) ? a : undefined;
 }
 
@@ -245,9 +242,11 @@ function TQsin(a,b) {
 
 function TQcos(a,b) {
     a = Number(a);
-    b=true;
     let mOne = 2;
     let result = 0;
+    if(b==NULL){
+        b=true;
+    }
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
@@ -266,12 +265,7 @@ function TQcos(a,b) {
         }
         a=result;
         a=a.toPrecision(14);
-        if (negCos == true) { 
-            a = 0 - a;
-        }
-        if (negA == true) {
-            a = 0 - a;
-        }
+      
         return (a != null) ? a : undefined;
     
 }
@@ -285,11 +279,11 @@ function TQcos(a,b) {
  */
 
 function TQtan(a,b){
-    let negA=false;
-    let negTan=false;
-    b=true;
     let result=0;
     a=Number(a);
+    if(b==NULL){
+        b=true;
+    }
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
@@ -312,12 +306,7 @@ function TQtan(a,b){
 	result=a/(1-result);
 	a=result;
     a=a.toPrecision(14);
-    if (negTan == true) { 
-        a = 0 - a;
-    }
-    if (negA == true) {
-        a = 0 - a;
-    }
+
     return (a != null) ? a : undefined;
 }
 
