@@ -66,7 +66,7 @@ function refresh() {
 
 	if (calculator.history.length > 0) {
 		let number = Number.parseFloat(calculator.history[calculator.history.length - 1]);
-		if (Math.ceil(Math.log(number + 1) / Math.LN10) > 8) number = number.toExponential(3);
+		number = Math.ceil(Math.log(Math.abs(number) + 1) / Math.LN10) > 8 ? number.toExponential(3) : number;
 		displayMain.html(number);
 	} else {
 		displayMain.html(0);
@@ -76,9 +76,9 @@ function refresh() {
 	var history1 = Number.parseFloat(calculator.history[calculator.history.length - 4]);
 	var history2 = Number.parseFloat(calculator.history[calculator.history.length - 3]);
 	var history3 = Number.parseFloat(calculator.history[calculator.history.length - 2]);
-	history1 = Math.abs(history1) > 999999 ? history1.toExponential(3) : history1;
-	history2 = Math.abs(history2) > 999999 ? history2.toExponential(3) : history2;
-	history3 = Math.abs(history3) > 999999 ? history3.toExponential(3) : history3;
+	history1 = Math.ceil(Math.log(Math.abs(history1) + 1) / Math.LN10) > 6 ? history1.toExponential(3) : history1;
+	history2 = Math.ceil(Math.log(Math.abs(history2) + 1) / Math.LN10) > 6 ? history2.toExponential(3) : history2;
+	history3 = Math.ceil(Math.log(Math.abs(history3) + 1) / Math.LN10) > 6 ? history3.toExponential(3) : history3;
 
 	switch (calculator.history.length) {
 		case 0:
