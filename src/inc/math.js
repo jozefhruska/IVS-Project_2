@@ -42,6 +42,7 @@ function PercentCheck(x,y)
  * @param {number} b Second number to add
  * @returns Sum of arguments 'a' and 'b' or false if arguments are not correct
  */
+
 function TQadd(a, b) {
 	a = PercentCheck(a,"");
 	b = PercentCheck(b,a);
@@ -58,6 +59,7 @@ function TQadd(a, b) {
  * @param {number} b Second number which will be substracted
  * @returns Difference of arguments 'a' and 'b' or false if arguments are not correct
  */
+
 function TQsub(a, b) {
 	a = PercentCheck(a,"");
 	b = PercentCheck(b,a);
@@ -74,6 +76,7 @@ function TQsub(a, b) {
  * @param {number} b Second number (Divisor)
  * @returns Division of arguments 'a' and 'b' or false if arguments are not correct
  */
+
 function TQdiv(a, b) {
 	a = PercentCheck(a,"");
 	b = PercentCheck(b,a);
@@ -90,6 +93,7 @@ function TQdiv(a, b) {
  * @param {number} b Second number to multiplicate
  * @returns Multiplication of arguments 'a' and 'b' or false if arguments are not correct
  */
+
 function TQmul(a, b) {
 	a = PercentCheck(a,"");
 	b = PercentCheck(b,a);
@@ -105,19 +109,18 @@ function TQmul(a, b) {
  * @param {number} a
  * @returns Factorial of argument 'a' or false if argument is not correct
  */
+
 function TQfact(a) {
     a = Number(a);
-    if(a<=50){
 
-    if (a != null && a >= 0) {
+    if (a==0 || a==1)
+        return 1;
+    if (a != null && a >= 0 && (a % 1 == 0)) {
         for (let i = a - 1; i > 0; i--) {
             a = a * i;
         }
         return a;
     } else return false;
-
-}else return false;
-
 }
 
 /**
@@ -128,14 +131,21 @@ function TQfact(a) {
 
  * @returns Argument 'a' to the power of 'n'
  */
+
 function TQpow(a, n) {
     a = Number(a);
     n = Number(n);
     let b = a;
-    if (a != null && n != null) {
+
+    if (a==1)
+        return 1;
+    if (a != null && n != null && (n % 1 == 0)) {
         if (n > 0) {
             for (let i = n; i > 1; i--) {
                 b = b * a;
+                if (b>TQfact(50)){
+                    return false;
+                }
             }
         } else if (n < 0) {
             if (a == 0) {
@@ -143,12 +153,14 @@ function TQpow(a, n) {
             }
             for (let i = Math.abs(n); i > 1; i--) {
                 b = b * a;
+                if (b>TQfact(50)){
+                    return false;
+                }
             }
             b = 1 / b;
         } else {
             b = 1;
         }
-
         return b;
     } else return false;
 }
@@ -159,9 +171,9 @@ function TQpow(a, n) {
  * @param {number} a
  * @returns Square root of argument 'a' or false if argument is a negative number
  */
+
 function TQsqrt(a) {
     a = Number(a);
-
     let guess = Math.ceil(a / 2);
     let nextguess;
     let num_itr = 0;
@@ -171,7 +183,7 @@ function TQsqrt(a) {
         if (a == 0) {
             nextguess = 0;
         } else {
-            while (num_itr < 8) {
+            while (num_itr < 50) {
                 nextguess = guess - ((TQpow(guess, 2) - a) / (2 * (guess)));
                 guess = nextguess;
                 num_itr++;
@@ -181,17 +193,20 @@ function TQsqrt(a) {
     return (a != null) ? nextguess : false;
 }
 
-
 /**
  * Sinus 
  * 
  * @param {number} a
  * @returns Sin of argument 'a' or flase if no argument was given 
  */
+
 function TQsin(a) {
     a = Number(a);
     let negA = false;
     let negSin = false;
+    let mOne = 2;
+    let result = 0;
+
     if (a < 0) {
         negA = true;
     }
@@ -199,7 +214,6 @@ function TQsin(a) {
     while (a > 360) {
         a = a - 360;
     }
-
     if (a == 0 || a == 180 || a == 360) {
         return 0;
     }
@@ -208,7 +222,7 @@ function TQsin(a) {
             return -1
         }
         else{
-        return 1;
+            return 1;
         }
     }
     if(a == 270){ 
@@ -216,7 +230,7 @@ function TQsin(a) {
             return 1;
         }
         else{
-        return -1;
+            return -1;
         }
     }
     if (a > 90 && a < 180) {
@@ -230,18 +244,20 @@ function TQsin(a) {
     }
 
     a = (Math.PI / 180) * a;
-    a = a - TQpow(a, 3) / TQfact(3) + TQpow(a, 5) / TQfact(5) - TQpow(a, 7) / TQfact(7) + TQpow(a,9) / TQfact(9) - TQpow(a,11) / TQfact(11);
+    for (let i=1;i<70;i+=2){
+        result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
+        mOne++;
+    }
+    a=result;
+    a=a.toPrecision(14);
     if (negSin == true) {
         a = 0 - a;
     }
     if (negA == true) {
         a = 0 - a;
     }
-
-    
     return (a != null) ? a : false;
 }
-
 
 /**
  * Cosinus
@@ -250,11 +266,13 @@ function TQsin(a) {
  * @returns Cosinus of argument 'a' or false if now argument was given
  */
 
-
 function TQcos(a) {
     a = Number(a);
     let negA = false;
     let negCos = false;
+    let mOne = 2;
+    let result = 0;
+
     if (a < 0) {
         negA = true;
     }
@@ -282,7 +300,12 @@ function TQcos(a) {
         a = 360 - a;
     }
     a = (Math.PI / 180) * a;
-    a = 1 - TQpow(a, 2) / TQfact(2) + TQpow(a, 4) / TQfact(4) - TQpow(a, 6) / TQfact(6) + TQpow(a,8) / TQfact(8) - TQpow(a,10) / TQfact(10);
+    for (let i=0;i<71;i+=2){
+        result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
+        mOne++;
+    }
+    a=result;
+    a=a.toPrecision(14);
     if (negCos == true) { 
         a = 0 - a;
     }
@@ -290,7 +313,6 @@ function TQcos(a) {
         a = 0 - a;
     }
     return (a != null) ? a : false;
-
 }
 
 /**
@@ -303,6 +325,7 @@ function TQcos(a) {
 function TQtan(a){
     let negA=false;
     a=Number(a);
+
     if (a < 0){
         negA=true;
     }
@@ -326,9 +349,12 @@ function TQtan(a){
     }
     else{
         a=TQsin(a)/TQcos(a);
-        return a;
+        a=a.toPrecision(13);
     }
-
+    if (negA==true){
+        a=0-a;
+    }
+    return (a != null) ? a : false;
 }
 
 //Export library functions

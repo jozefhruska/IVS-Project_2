@@ -111,6 +111,25 @@ QUnit.test("Division test",function (assert)
 }
 );
 
+QUnit.test( "Factorial test", function (assert)
+{
+	let zero=0;
+	let one=1;
+	let smallNumber=5;
+	let normalNumber=50;
+	let seemDecNum=0.5e2;
+	let normalNegativeNumber=-123456789;
+	let Pi=3.1415926535897932;
+
+	assert.strictEqual(  MathLib.TQfact(zero),1,"Zero test" );
+	assert.strictEqual( MathLib.TQfact(one),1,"One test" );
+	assert.strictEqual( MathLib.TQfact(smallNumber),120,"Small number test" );
+	assert.strictEqual( MathLib.TQfact(normalNumber),30414093201713378043612608166064768844377641568960512000000000000,"Normal Number" );
+	assert.strictEqual( MathLib.TQfact(seemDecNum),30414093201713378043612608166064768844377641568960512000000000000,"Seemingly Decimal Number" );
+	assert.notOk( MathLib.TQfact(normalNegativeNumber),"Exception - negative number" );
+	assert.notOk( MathLib.TQfact(Pi),"Exception - Not an integer" );
+}
+);
 
 QUnit.test( "Power test", function (assert)
 {
@@ -119,8 +138,6 @@ QUnit.test( "Power test", function (assert)
 	let mOne=-1;
 	let normalNumber=123456789;
 	let normalNegativeNumber=-123456789;
-	let bigNumber=9.0e300;
-	let bigNegativeNumber=-9.0e300;
 	let difExp=2.0e9;
 	let Pi=3.1415926535897932;
 	let dec1=5.4;
@@ -130,28 +147,21 @@ QUnit.test( "Power test", function (assert)
 	assert.strictEqual( MathLib.TQpow(zero,5),0,"Zero test 2" );
 	assert.strictEqual( MathLib.TQpow(normalNumber,zero),1,"Zero test 3" );
 	assert.strictEqual( MathLib.TQpow(normalNegativeNumber,zero),1,"Zero test 4" );
-	assert.strictEqual( MathLib.TQpow(bigNumber,zero),1,"Zero test 5" );
-	assert.strictEqual( MathLib.TQpow(bigNegativeNumber,zero),1,"Zero test 6" );
 	assert.strictEqual( MathLib.TQpow(difExp,zero),1,"Zero test 7" );
 	assert.strictEqual( MathLib.TQpow(Pi,zero),1,"Zero test 8" );
 	assert.strictEqual( MathLib.TQpow(one,normalNumber),1,"One test 1" );
 	assert.strictEqual( MathLib.TQpow(one,normalNegativeNumber),1,"One test 2" );
-	assert.strictEqual( MathLib.TQpow(one,bigNumber),1,"One test 3" );
-	assert.strictEqual( MathLib.TQpow(one,bigNegativeNumber),1,"One test 4" );
-	assert.strictEqual( MathLib.TQpow(one,difExp),1,"One test 5" );
+	assert.strictEqual( MathLib.TQpow(one,difExp),1,"One test 3" );
 	assert.strictEqual( MathLib.TQpow(mOne,normalNumber),-1,"Minus one test 1" );
 	assert.strictEqual( MathLib.TQpow(mOne,2),1,"Minus one test 2" );
-	assert.strictEqual( MathLib.TQpow(normalNumber,10),8.225262591471026e80,"Normal number test" );
-	assert.strictEqual( MathLib.TQpow(normalNegativeNumber,10),8.225262591471026e80,"Normal negative number test" );
-	assert.strictEqual( MathLib.TQpow(bigNumber,3),7.29e902,"Big number test 1" );
-	assert.strictEqual( MathLib.TQpow(bigNegativeNumber,3),-7.29e902,"Big number test 2" );
-	assert.strictEqual( MathLib.TQpow(bigNegativeNumber,2),8.1e901,"Big number test 3" );
+	assert.notOk( MathLib.TQpow(normalNumber,10),"Normal number test" );
+	assert.notOk( MathLib.TQpow(normalNegativeNumber,10),"Normal negative number test" );
 	assert.strictEqual( MathLib.TQpow(5,-3),0.008,"Negative exponent 1" );
 	assert.strictEqual( MathLib.TQpow(5,-3),8.0e-3,"Negative exponent 2" );
-	assert.strictEqual( MathLib.TQpow(dec1,2),29.16,"Decimal test 1" );
-	assert.strictEqual( MathLib.TQpow(dec1,5),4591.65024,"Decimal test 2" );
-	assert.strictEqual( MathLib.TQpow(dec2,2),1.5625,"Decimal test 3" );
-	assert.strictEqual( MathLib.TQpow(dec2,5),3.051757813,"Decimal test 4" );
+	assert.strictEqual( MathLib.TQpow(dec1,2),Math.pow(dec1,2),"Decimal test 1" );
+	assert.strictEqual( MathLib.TQpow(dec1,5),Math.pow(dec1,5),"Decimal test 2" );
+	assert.strictEqual( MathLib.TQpow(dec2,2),Math.pow(dec2,2),"Decimal test 3" );
+	assert.strictEqual( MathLib.TQpow(dec2,5),Math.pow(dec2,5),"Decimal test 4" );
 	assert.strictEqual( MathLib.TQpow(dec2,mOne),0.8,"Decimal test 5" );
 	assert.notOk( MathLib.TQpow(0,mOne),"Exception - zero with negative exponent" );
 	assert.notOk( MathLib.TQpow(difExp,2.3),"Exception - exponent not an integer" );
@@ -165,8 +175,8 @@ QUnit.test( "Square root test", function(assert)
 	let mOne=-1;
 	let normalNumber=1314135001;
 	let normalNegativeNumber=-123456789;
-	let bigNumber=100000000000000000000000000000000000000000000000000000000000000000000000000;
-	let bigNegativeNumber=-100000000000000000000000000000000000000000000000000000000000000000000000000;
+	let bigNumber=100000000000000000000;
+	let bigNegativeNumber=-100000000000000000000;
 	let normalDec=27.5625;
 	let longDec=152402072.9957399025;
 
@@ -175,7 +185,7 @@ QUnit.test( "Square root test", function(assert)
 	assert.notOk( MathLib.TQsqrt(mOne),"Exception - minus one" );
 	assert.strictEqual( MathLib.TQsqrt(normalNumber),36251,"Normal number test" );
 	assert.notOk( MathLib.TQsqrt(normalNegativeNumber),"Exception - negative number" );
-	assert.strictEqual( MathLib.TQsqrt(bigNumber),10000000000000000000000000000000000000,"Big number test" );
+	assert.strictEqual( MathLib.TQsqrt(bigNumber),10000000000,"Big number test" );
 	assert.notOk( MathLib.TQsqrt(bigNegativeNumber),"Exception - negative big number" );
 	assert.strictEqual( MathLib.TQsqrt(normalDec),5.25,"Decimal number test" );
 	assert.strictEqual( MathLib.TQsqrt(longDec),12345.12345,"Long decimal number test 1" );
@@ -186,9 +196,13 @@ QUnit.test( "Square root test", function(assert)
 QUnit.test("Sinus test", function(assert)
 {
 	let sin45=MathLib.TQsqrt(2)/2;
+	sin45=sin45.toPrecision(14);
 	let neg45=MathLib.TQsqrt(2)/(-2);
+	neg45=neg45.toPrecision(14);
 	let sin60=MathLib.TQsqrt(3)/2;
+	sin60=sin60.toPrecision(14);
 	let neg60=MathLib.TQsqrt(3)/(-2);
+	neg60=neg60.toPrecision(14);
 
 	assert.strictEqual(MathLib.TQsin(0),0,"Zero test 1");
 	assert.strictEqual(MathLib.TQsin(180),0,"Zero test 2");
@@ -199,18 +213,18 @@ QUnit.test("Sinus test", function(assert)
 	assert.strictEqual(MathLib.TQsin(270),-1,"One test 2");
 	assert.strictEqual(MathLib.TQsin(450),1,"One test 3");
 	assert.strictEqual(MathLib.TQsin(630),-1,"One test 4");
-	assert.strictEqual(MathLib.TQsin(30),0.5,"Table test sin 30");
-	assert.strictEqual(MathLib.TQsin(150),0.5,"Table test sin 150");
-	assert.strictEqual(MathLib.TQsin(210),-0.5,"Table test sin 210");
-	assert.strictEqual(MathLib.TQsin(330),-0.5,"Table test sin 330");
-	assert.strictEqual(MathLib.TQsin(390),0.5,"Table test sin 390");
-	assert.strictEqual(MathLib.TQsin(510),0.5,"Table test sin 510");
-	assert.strictEqual(MathLib.TQsin(570),-0.5,"Table test sin 570");
-	assert.strictEqual(MathLib.TQsin(690),-0.5,"Table test sin 690");
-	assert.strictEqual(MathLib.TQsin(750),0.5,"Table test sin 750");
-	assert.strictEqual(MathLib.TQsin(870),0.5,"Table test sin 870");
-	assert.strictEqual(MathLib.TQsin(930),-0.5,"Table test sin 930");
-	assert.strictEqual(MathLib.TQsin(1050),-0.5,"Table test sin 1050");
+	assert.equal(MathLib.TQsin(30),0.5,"Table test sin 30");
+	assert.equal(MathLib.TQsin(150),0.5,"Table test sin 150");
+	assert.equal(MathLib.TQsin(210),-0.5,"Table test sin 210");
+	assert.equal(MathLib.TQsin(330),-0.5,"Table test sin 330");
+	assert.equal(MathLib.TQsin(390),0.5,"Table test sin 390");
+	assert.equal(MathLib.TQsin(510),0.5,"Table test sin 510");
+	assert.equal(MathLib.TQsin(570),-0.5,"Table test sin 570");
+	assert.equal(MathLib.TQsin(690),-0.5,"Table test sin 690");
+	assert.equal(MathLib.TQsin(750),0.5,"Table test sin 750");
+	assert.equal(MathLib.TQsin(870),0.5,"Table test sin 870");
+	assert.equal(MathLib.TQsin(930),-0.5,"Table test sin 930");
+	assert.equal(MathLib.TQsin(1050),-0.5,"Table test sin 1050");
 	assert.equal(MathLib.TQsin(45),sin45,"Table test sin 45");
 	assert.equal(MathLib.TQsin(135),sin45,"Table test sin 135");
 	assert.equal(MathLib.TQsin(225),neg45,"Table test sin 225");
@@ -244,18 +258,18 @@ QUnit.test("Sinus test", function(assert)
 	assert.strictEqual(MathLib.TQsin(-270),1,"Negative one test 2");
 	assert.strictEqual(MathLib.TQsin(-450),-1,"Negative one test 3");
 	assert.strictEqual(MathLib.TQsin(-630),1,"Negative one test 4");
-	assert.strictEqual(MathLib.TQsin(-30),0.5,"Table test sin -30");
-	assert.strictEqual(MathLib.TQsin(-150),0.5,"Table test sin -150");
-	assert.strictEqual(MathLib.TQsin(-210),-0.5,"Table test sin -210");
-	assert.strictEqual(MathLib.TQsin(-330),-0.5,"Table test sin -330");
-	assert.strictEqual(MathLib.TQsin(-390),0.5,"Table test sin -390");
-	assert.strictEqual(MathLib.TQsin(-510),0.5,"Table test sin -510");
-	assert.strictEqual(MathLib.TQsin(-570),-0.5,"Table test sin -570");
-	assert.strictEqual(MathLib.TQsin(-690),-0.5,"Table test sin -690");
-	assert.strictEqual(MathLib.TQsin(-750),0.5,"Table test sin -750");
-	assert.strictEqual(MathLib.TQsin(-870),0.5,"Table test sin -870");
-	assert.strictEqual(MathLib.TQsin(-930),-0.5,"Table test sin -930");
-	assert.strictEqual(MathLib.TQsin(-1050),-0.5,"Table test sin -1050");
+	assert.strictEqual(MathLib.TQsin(-30),-0.5,"Table test sin -30");
+	assert.strictEqual(MathLib.TQsin(-150),-0.5,"Table test sin -150");
+	assert.strictEqual(MathLib.TQsin(-210),0.5,"Table test sin -210");
+	assert.strictEqual(MathLib.TQsin(-330),0.5,"Table test sin -330");
+	assert.strictEqual(MathLib.TQsin(-390),-0.5,"Table test sin -390");
+	assert.strictEqual(MathLib.TQsin(-510),-0.5,"Table test sin -510");
+	assert.strictEqual(MathLib.TQsin(-570),0.5,"Table test sin -570");
+	assert.strictEqual(MathLib.TQsin(-690),0.5,"Table test sin -690");
+	assert.strictEqual(MathLib.TQsin(-750),-0.5,"Table test sin -750");
+	assert.strictEqual(MathLib.TQsin(-870),-0.5,"Table test sin -870");
+	assert.strictEqual(MathLib.TQsin(-930),0.5,"Table test sin -930");
+	assert.strictEqual(MathLib.TQsin(-1050),0.5,"Table test sin -1050");
 	assert.equal(MathLib.TQsin(-45),neg45,"Table test sin -45");
 	assert.equal(MathLib.TQsin(-135),neg45,"Table test sin -135");
 	assert.equal(MathLib.TQsin(-225),sin45,"Table test sin -225");
@@ -286,9 +300,13 @@ QUnit.test("Sinus test", function(assert)
 QUnit.test("Cosinus test", function(assert)
 {
 	let cos30=MathLib.TQsqrt(3)/2;
+	cos30=cos30.toPrecision(14);
 	let neg30=MathLib.TQsqrt(3)/(-2);
+	neg30=neg30.toPrecision(14);
 	let cos45=MathLib.TQsqrt(2)/2;
+	cos45=cos45.toPrecision(14);
 	let neg45=MathLib.TQsqrt(2)/(-2);
+	neg45=neg45.toPrecision(14);
 	
 	assert.strictEqual(MathLib.TQcos(0),1,"One test 1");
 	assert.strictEqual(MathLib.TQcos(180),-1,"One test 2");
@@ -299,18 +317,18 @@ QUnit.test("Cosinus test", function(assert)
 	assert.strictEqual(MathLib.TQcos(270),0,"Zero test 2");
 	assert.strictEqual(MathLib.TQcos(450),0,"Zero test 3");
 	assert.strictEqual(MathLib.TQcos(630),0,"Zero test 4");
-	assert.strictEqual(MathLib.TQcos(60),0.5,"Table test cos 60");
-	assert.strictEqual(MathLib.TQcos(120),-0.5,"Table test cos 120");
-	assert.strictEqual(MathLib.TQcos(240),-0.5,"Table test cos 240");
-	assert.strictEqual(MathLib.TQcos(300),0.5,"Table test cos 300");
-	assert.strictEqual(MathLib.TQcos(420),0.5,"Table test cos 420");
-	assert.strictEqual(MathLib.TQcos(480),-0.5,"Table test cos 480");
-	assert.strictEqual(MathLib.TQcos(600),-0.5,"Table test cos 600");
-	assert.strictEqual(MathLib.TQcos(660),0.5,"Table test cos 660");
-	assert.strictEqual(MathLib.TQcos(780),0.5,"Table test cos 780");
-	assert.strictEqual(MathLib.TQcos(840),-0.5,"Table test cos 840");
-	assert.strictEqual(MathLib.TQcos(960),-0.5,"Table test cos 960");
-	assert.strictEqual(MathLib.TQcos(1020),0.5,"Table test cos 1020");
+	assert.equal(MathLib.TQcos(60),0.5,"Table test cos 60");
+	assert.equal(MathLib.TQcos(120),-0.5,"Table test cos 120");
+	assert.equal(MathLib.TQcos(240),-0.5,"Table test cos 240");
+	assert.equal(MathLib.TQcos(300),0.5,"Table test cos 300");
+	assert.equal(MathLib.TQcos(420),0.5,"Table test cos 420");
+	assert.equal(MathLib.TQcos(480),-0.5,"Table test cos 480");
+	assert.equal(MathLib.TQcos(600),-0.5,"Table test cos 600");
+	assert.equal(MathLib.TQcos(660),0.5,"Table test cos 660");
+	assert.equal(MathLib.TQcos(780),0.5,"Table test cos 780");
+	assert.equal(MathLib.TQcos(840),-0.5,"Table test cos 840");
+	assert.equal(MathLib.TQcos(960),-0.5,"Table test cos 960");
+	assert.equal(MathLib.TQcos(1020),0.5,"Table test cos 1020");
 	assert.equal(MathLib.TQcos(45),cos45,"Table test cos 45");
 	assert.equal(MathLib.TQcos(135),neg45,"Table test cos 135");
 	assert.equal(MathLib.TQcos(225),neg45,"Table test cos 225");
@@ -336,10 +354,10 @@ QUnit.test("Cosinus test", function(assert)
 	assert.equal(MathLib.TQcos(930),neg30,"Table test cos 930");
 	assert.equal(MathLib.TQcos(1050),cos30,"Table test cos 1050");
 	
-	assert.strictEqual(MathLib.TQcos(-180),1,"Negative one test 1");
-	assert.strictEqual(MathLib.TQcos(-360),-1,"Negative one test 2");
-	assert.strictEqual(MathLib.TQcos(-540),1,"Negative one test 3");
-	assert.strictEqual(MathLib.TQcos(-720),-1,"Negative one test 4");
+	assert.strictEqual(MathLib.TQcos(-180),-1,"Negative one test 1");
+	assert.strictEqual(MathLib.TQcos(-360),1,"Negative one test 2");
+	assert.strictEqual(MathLib.TQcos(-540),-1,"Negative one test 3");
+	assert.strictEqual(MathLib.TQcos(-720),1,"Negative one test 4");
 	assert.strictEqual(MathLib.TQcos(-90),0,"Zero test 1");
 	assert.strictEqual(MathLib.TQcos(-270),0,"Zero test 2");
 	assert.strictEqual(MathLib.TQcos(-450),0,"Zero test 3");
@@ -386,9 +404,13 @@ QUnit.test("Cosinus test", function(assert)
 QUnit.test("Tangent test",function(assert)
 {
 	let tan30=MathLib.TQsqrt(3)/3;
+	tan30=tan30.toPrecision(13);
 	let neg30=MathLib.TQsqrt(3)/(-3);
+	neg30=neg30.toPrecision(13);
 	let tan60=MathLib.TQsqrt(3);
+	tan60=tan60.toPrecision(13);
 	let neg60=MathLib.TQsqrt(3)*(-1);
+	neg60=neg60.toPrecision(13);
 	
 	assert.strictEqual(MathLib.TQtan(0),0,"Zero test 1");
 	assert.strictEqual(MathLib.TQtan(180),0,"Zero test 2");
@@ -396,17 +418,17 @@ QUnit.test("Tangent test",function(assert)
 	assert.strictEqual(MathLib.TQtan(540),0,"Zero test 4");
 	assert.strictEqual(MathLib.TQtan(720),0,"Zero test 5");
 	assert.strictEqual(MathLib.TQtan(45),1,"Table test tan 45");
-	assert.strictEqual(MathLib.TQtan(135),-1,"Table test tan 135");
-	assert.strictEqual(MathLib.TQtan(225),1,"Table test tan 225");
-	assert.strictEqual(MathLib.TQtan(315),-1,"Table test tan 315");
-	assert.strictEqual(MathLib.TQtan(405),1,"Table test tan 405");
-	assert.strictEqual(MathLib.TQtan(495),-1,"Table test tan 495");
-	assert.strictEqual(MathLib.TQtan(585),1,"Table test tan 585");
-	assert.strictEqual(MathLib.TQtan(675),-1,"Table test tan 675");
-	assert.strictEqual(MathLib.TQtan(765),1,"Table test tan 765");
-	assert.strictEqual(MathLib.TQtan(855),-1,"Table test tan 855");
-	assert.strictEqual(MathLib.TQtan(945),1,"Table test tan 945");
-	assert.strictEqual(MathLib.TQtan(1035),-1,"Table test tan 1035");
+	assert.equal(MathLib.TQtan(135),-1,"Table test tan 135");
+	assert.equal(MathLib.TQtan(225),1,"Table test tan 225");
+	assert.equal(MathLib.TQtan(315),-1,"Table test tan 315");
+	assert.equal(MathLib.TQtan(405),1,"Table test tan 405");
+	assert.equal(MathLib.TQtan(495),-1,"Table test tan 495");
+	assert.equal(MathLib.TQtan(585),1,"Table test tan 585");
+	assert.equal(MathLib.TQtan(675),-1,"Table test tan 675");
+	assert.equal(MathLib.TQtan(765),1,"Table test tan 765");
+	assert.equal(MathLib.TQtan(855),-1,"Table test tan 855");
+	assert.equal(MathLib.TQtan(945),1,"Table test tan 945");
+	assert.equal(MathLib.TQtan(1035),-1,"Table test tan 1035");
 	assert.equal(MathLib.TQtan(30),tan30,"Table test tan 30");
 	assert.equal(MathLib.TQtan(150),neg30,"Table test tan 150");
 	assert.equal(MathLib.TQtan(210),tan30,"Table test tan 210");
