@@ -169,7 +169,7 @@ function TQpow(a, n) {
  * Square root - using Newton's method
  *
  * @param {number} a
- * @returns Square root of argument 'a' or false if argument is a negative number
+ * @returns Square root of argument 'a' or undefined if argument is a negative number
  */
 
 function TQsqrt(a) {
@@ -198,17 +198,14 @@ function TQsqrt(a) {
  * 
  * @param {number} a
  * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
- * @returns Sin of argument 'a' or flase if no argument was given
+ * @returns Sin of argument 'a' or undefined if no argument was given
  */
 
 
-function TQsin(a,b) {
+function TQsin(a,b=true) {
     a = Number(a);
     let mOne = 2;
     let result = 0;
-    if(b==NULL){
-        b=true;
-    }
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
@@ -240,25 +237,19 @@ function TQsin(a,b) {
  * @returns Cosinus of argument 'a' or false if now argument was given
  */
 
-function TQcos(a,b) {
+function TQcos(a,b=true) {
     a = Number(a);
     let mOne = 2;
     let result = 0;
-    if(b==NULL){
-        b=true;
-    }
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
             a=a-Math.PI*2;
         }
     }
-
     if(a==Math.PI/2 || a==(3*Math.PI)/2){
         return 0;
     } 
-
-
         for (let i=0;i<71;i+=2){
         result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
         mOne++;
@@ -278,12 +269,10 @@ function TQcos(a,b) {
  * @returns Tangens of argument 'a' or false if a given angle is undefined
  */
 
-function TQtan(a,b){
+function TQtan(a,b=true){
     let result=0;
     a=Number(a);
-    if(b==NULL){
-        b=true;
-    }
+   
     if(b==true){
         a = (Math.PI / 180) * a;
         while(a>(Math.PI*2)){ 
@@ -297,8 +286,6 @@ function TQtan(a,b){
     else if(a==Math.PI || a==(Math.PI*2)){
         return 0;
     }
-
-
     for (let i=20;i>1;i--)
 	{
 		result=(a*a)/((2*i-1)-result);
