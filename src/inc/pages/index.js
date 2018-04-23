@@ -40,6 +40,7 @@ var displayFitty = fitty('#display-main');
 const displayHistory = $("#display-history");
 const menuToggle = $("#menu-toggle");
 const menuKeys = $("*[data-menu]");
+var isMenuClosed = true;
 
 // Initialize calculator
 var Calculator = require("../calculator");
@@ -61,7 +62,7 @@ function toggleClass(color) {
 }
 
 // Parse and trim number to 6 digits
-function parseAndTrim(number, digits = 6) {
+function parseAndTrim(number, digits = 5) {
 	number = Number.parseFloat(number);
 	let length = number.toString().length;
 	return length > digits ? number.toPrecision(digits) : number;
@@ -269,7 +270,11 @@ EQ.click(function () {
 
 // Menu toggle onClick listener
 menuToggle.click(function () {
-	$(this.parentNode).children("ul").slideToggle(300);
+	$(this.parentNode).children("ul").slideToggle(300, function(){
+		if ($(this).is(':hidden')) isMenuClosed = true;
+		else isMenuClosed = false;
+		return false;
+	});
 });
 
 // Menu - list onClick listeners
@@ -344,6 +349,15 @@ menuKeys.click(function () {
 		calculator.clearActiveOp();
 		refresh();
 	}
+});
+
+// onClick listener to dismiss the slide menu
+$(".app-page").on("click", function() {
+	if (!isMenuClosed) menuToggle.parent().children("ul").slideToggle(300, function(){
+		if ($(this).is(':hidden')) isMenuClosed = true;
+		else isMenuClosed = false;
+		return false;
+	});
 });
 
 // History onClick listeners
