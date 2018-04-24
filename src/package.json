@@ -13,7 +13,7 @@
   },
   "keywords": [],
   "author": "Tough Question",
-  "license": "GPL-3.0-or-later",
+  "license": "GPL-3.0",
   "config": {
     "forge": {
       "make_targets": {
@@ -24,8 +24,7 @@
           "zip"
         ],
         "linux": [
-          "deb",
-          "rpm"
+          "deb"
         ]
       },
       "electronPackagerConfig": {
