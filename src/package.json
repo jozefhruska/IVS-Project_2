@@ -29,7 +29,8 @@
         ]
       },
       "electronPackagerConfig": {
-        "packageManager": "npm"
+        "packageManager": "npm",
+        "icon": "inc/icons/mac/icon.png.icns"
       },
       "electronWinstallerConfig": {
         "name": "src"
@@ -53,9 +54,6 @@
     "electron-stream": "^5.1.2",
     "electron-timber": "^0.4.0",
     "fitty": "^2.2.5",
-    "gulp": "^3.9.1",
-    "gulp-less": "^4.0.0",
-    "gulp-sass": "^4.0.1",
     "jquery": "^3.3.1",
     "npm": "^5.8.0",
     "popper.js": "^1.14.3",
@@ -74,7 +72,6 @@
     "eslint-plugin-import": "^2.10.0",
     "eslint-plugin-jsx-a11y": "^5.1.1",
     "eslint-plugin-react": "^7.7.0",
-    "markdown-pdf": "^8.1.1",
-    "mocha": "^5.1.1"
+    "markdown-pdf": "^8.1.1"
   }
 }

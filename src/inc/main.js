@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 const timber = require('electron-timber');
+var path = require('path');
 
 if (require('electron-squirrel-startup')) {
   app.quit();
@@ -18,7 +19,8 @@ const initalize = () => {
     maxHeight: 990,
     maximizable: false,
     frame: false,
-    titleBarStyle: 'hiddenInset'
+    titleBarStyle: 'hiddenInset',
+    icon: path.join(__dirname, 'icons/png/64x64.png')
   });
 
   mainWindow.loadURL(`file://${__dirname}/pages/index.html`);
