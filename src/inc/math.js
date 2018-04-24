@@ -1,5 +1,3 @@
-
-
 /**
  * Copyright 2018 Tough Question
  *
@@ -10,11 +8,11 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  *
  * @file Mathematical library
  * @author Dominika Pločicová <xploci00@vutbr.cz>
@@ -23,15 +21,13 @@
 'use strict'
 
 
-function PercentCheck(x,y)
-{
-	//RegExp pro odstraneni nechtenych znaku, resp. "%"
-	if (/^\d+(\.\d+)?%$/.test(x)) {
-    x = x.replace(/[^a-zA-Z0-9 ]/g, "");
-	if (y == "") return (x)
-	else return (x/100*y);
-	}
-	else return(x);
+function PercentCheck(x, y) {
+    //RegExp for removing characters which we dont need
+    if (/^\d+(\.\d+)?%$/.test(x)) {
+        x = x.replace(/[^a-zA-Z0-9 ]/g, "");
+        if (y == "") return (x)
+        else return (x / 100 * y);
+    } else return (x);
 }
 
 
@@ -40,12 +36,12 @@ function PercentCheck(x,y)
  *
  * @param {number} a First number to add
  * @param {number} b Second number to add
- * @returns Sum of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Sum of arguments 'a' and 'b' or undefined if arguments are not correct
  */
 
 function TQadd(a, b) {
-	a = PercentCheck(a,"");
-	b = PercentCheck(b,a);
+    a = PercentCheck(a, "");
+    b = PercentCheck(b, a);
     a = Number(a);
     b = Number(b);
 
@@ -61,8 +57,8 @@ function TQadd(a, b) {
  */
 
 function TQsub(a, b) {
-	a = PercentCheck(a,"");
-	b = PercentCheck(b,a);
+    a = PercentCheck(a, "");
+    b = PercentCheck(b, a);
     a = Number(a);
     b = Number(b);
 
@@ -74,14 +70,15 @@ function TQsub(a, b) {
  *
  * @param {number} a First number (Divident)
  * @param {number} b Second number (Divisor)
- * @returns Division of arguments 'a' and 'b' or false if arguments are not correct
+ * @returns Division of arguments 'a' and 'b' or undefined if arguments are not correct
  */
 
 function TQdiv(a, b) {
-	a = PercentCheck(a,"");
-	b = PercentCheck(b,a);
+    a = PercentCheck(a, "");
+    b = PercentCheck(b, a);
     a = Number(a);
     b = Number(b);
+
 
     return ((a != null && b != null && b != 0) ? a / b : undefined)
 }
@@ -95,8 +92,8 @@ function TQdiv(a, b) {
  */
 
 function TQmul(a, b) {
-	a = PercentCheck(a,"");
-	b = PercentCheck(b,a);
+    a = PercentCheck(a, "");
+    b = PercentCheck(b, a);
     a = Number(a);
     b = Number(b);
 
@@ -107,19 +104,20 @@ function TQmul(a, b) {
  * Factorial
  *
  * @param {number} a
- * @returns Factorial of argument 'a' or false if argument is not correct
+ * @returns Factorial of argument 'a' or undefined if argument is not correct
  */
 
 function TQfact(a) {
     a = Number(a);
-
-    if (a==0 || a==1)
-        return 1;
-    if (a != null && a >= 0 && (a % 1 == 0)) {
-        for (let i = a - 1; i > 0; i--) {
-            a = a * i;
-        }
-        return a;
+    if (a < 80) {
+        if (a == 0 || a == 1)
+            return 1;
+        if (a != null && a >= 0 && (a % 1 == 0)) {
+            for (let i = a - 1; i > 0; i--) {
+                a = a * i;
+            }
+            return a;
+        } else return undefined;
     } else return undefined;
 }
 
@@ -129,7 +127,7 @@ function TQfact(a) {
  * @param {number} a First number (Base)
  * @param {number} n Second number (Exponent)
 
- * @returns Argument 'a' to the power of 'n'
+ * @returns Argument 'a' to the power of 'n' or undefined if a argument is too big or if no argument was given
  */
 
 function TQpow(a, n) {
@@ -137,13 +135,13 @@ function TQpow(a, n) {
     n = Number(n);
     let b = a;
 
-    if (a==1)
+    if (a == 1)
         return 1;
     if (a != null && n != null && (n % 1 == 0)) {
         if (n > 0) {
             for (let i = n; i > 1; i--) {
                 b = b * a;
-                if (b>TQfact(50)){
+                if (b > 7.1569457e118) {
                     return undefined;
                 }
             }
@@ -153,7 +151,7 @@ function TQpow(a, n) {
             }
             for (let i = Math.abs(n); i > 1; i--) {
                 b = b * a;
-                if (b>TQfact(50)){
+                if (b > 7.1569457e118) {
                     return undefined;
                 }
             }
@@ -197,35 +195,63 @@ function TQsqrt(a) {
  * Sinus 
  * 
  * @param {number} a
- * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
- * @returns Sin of argument 'a' or undefined if no argument was given
+ * @returns Sin of argument 'a' or undefined if no argument was given 
  */
 
-
-function TQsin(a,b=true) {
+function TQsin(a) {
     a = Number(a);
+    let negA = false;
+    let negSin = false;
     let mOne = 2;
     let result = 0;
-    if(b==true){
-        a = (Math.PI / 180) * a;
-        while(a>(Math.PI*2)){ 
-            a-=Math.PI*2;
-        }
 
+    if (a < 0) {
+        negA = true;
+    }
+    a = Math.abs(a);
+    while (a > 360) {
+        a = a - 360;
+    }
+    if (a == 0 || a == 180 || a == 360) {
+        return 0;
+    }
+    if (a == 90) {
+        if (negA == true) {
+            return -1
+        } else {
+            return 1;
+        }
+    }
+    if (a == 270) {
+        if (negA == true) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+    if (a > 90 && a < 180) {
+        a = 180 - a;
+    } else if (a > 180 && a < 270) {
+        a = a - 180;
+        negSin = true;
+    } else if (a > 270 && a < 360) {
+        a = 360 - a;
+        negSin = true;
     }
 
-    if(a==Math.PI || a==2*Math.PI){
-        return 0;
-    } 
-
-   
-    for (let i=1;i<70;i+=2){
-        result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
+    a = (Math.PI / 180) * a;
+    for (let i = 1; i < 70; i += 2) {
+        result = result + (TQpow(-1, mOne) * TQpow(a, i) / TQfact(i));
         mOne++;
     }
-    a=result;
-    a=a.toPrecision(14);
-
+    a = result;
+    a = a.toPrecision(14);
+    if (negSin == true) {
+        a = 0 - a;
+    }
+    if (negA == true) {
+        a = 0 - a;
+    }
     return (a != null) ? a : undefined;
 }
 
@@ -233,67 +259,120 @@ function TQsin(a,b=true) {
  * Cosinus
  * 
  * @param {number} a 
- * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
- * @returns Cosinus of argument 'a' or false if now argument was given
+ * @returns Cosinus of argument 'a' or undefined if now argument was given
  */
 
-function TQcos(a,b=true) {
+function TQcos(a) {
     a = Number(a);
+    let negA = false;
+    let negCos = false;
     let mOne = 2;
     let result = 0;
-    if(b==true){
-        a = (Math.PI / 180) * a;
-        while(a>(Math.PI*2)){ 
-            a=a-Math.PI*2;
-        }
+
+    if (a < 0) {
+        negA = true;
     }
-    if(a==Math.PI/2 || a==(3*Math.PI)/2){
+    a = Math.abs(a);
+    while (a > 360) {
+        a = a - 360;
+    }
+
+    if (a == 0 || a == 360) {
+        return 1;
+    }
+    if (a == 180) {
+        return -1;
+    }
+    if (a == 90 || a == 270) {
         return 0;
-    } 
-        for (let i=0;i<71;i+=2){
-        result=result+(TQpow(-1,mOne)*TQpow(a,i) / TQfact(i));
+    }
+    if (a > 90 && a < 180) {
+        a = 180 - a;
+        negCos = true;
+    } else if (a > 180 && a < 270) {
+        a = a - 180;
+        negCos = true;
+    } else if (a > 270 && a < 360) {
+        a = 360 - a;
+    }
+    a = (Math.PI / 180) * a;
+    for (let i = 0; i < 71; i += 2) {
+        result = result + (TQpow(-1, mOne) * TQpow(a, i) / TQfact(i));
         mOne++;
-        }
-        a=result;
-        a=a.toPrecision(14);
-      
-        return (a != null) ? a : undefined;
-    
+    }
+    a = result;
+    a = a.toPrecision(14);
+    if (negCos == true) {
+        a = 0 - a;
+    }
+    if (negA == true) {
+        a = 0 - a;
+    }
+    return (a != null) ? a : undefined;
 }
 
 /**
  * Tangens
  * 
  * @param {number} a 
- * @param {Boolean} b -if b==true,"a" is in degrees otherwise "a" is in radian
- * @returns Tangens of argument 'a' or false if a given angle is undefined
+ * @returns Tangens of argument 'a' or undefined if no argument was given or the angle is "undefined" 
  */
 
-function TQtan(a,b=true){
-    let result=0;
-    a=Number(a);
-   
-    if(b==true){
-        a = (Math.PI / 180) * a;
-        while(a>(Math.PI*2)){ 
-            a=a-Math.PI*2;
-        }
+function TQtan(a) {
+    let negA = false;
+    let negTan = false;
+    let result = 0;
+    a = Number(a);
 
+    if (a < 0) {
+        negA = true;
     }
-    if(a==Math.PI/2 || a==(3*Math.PI)/2){
-        return false;
+    a = Math.abs(a);
+    while (a > 360) {
+        a = a - 360;
     }
-    else if(a==Math.PI || a==(Math.PI*2)){
+    if (a == 90 || a == 270) {
+        return undefined;
+    }
+    if (a == 0 || a == 180 || a == 360) {
         return 0;
     }
-    for (let i=20;i>1;i--)
-	{
-		result=(a*a)/((2*i-1)-result);
-	}
-	result=a/(1-result);
-	a=result;
-    a=a.toPrecision(14);
-
+    if (a == 45 || a == 225) {
+        if (negA == true) {
+            return -1;
+        } else {
+            return 1;
+        }
+    }
+    if (a == 135 || a == 315) {
+        if (negA == true) {
+            return 1;
+        } else {
+            return -1;
+        }
+    }
+    if (a > 90 && a < 180) {
+        a = 180 - a;
+        negTan = true;
+    } else if (a > 180 && a < 270) {
+        a = a - 180;
+    } else if (a > 270 && a < 360) {
+        a = 360 - a;
+        negTan = true;
+    }
+    a = (Math.PI / 180) * a;
+    for (let i = 20; i > 1; i--) {
+        result = (a * a) / ((2 * i - 1) - result);
+    }
+    result = a / (1 - result);
+    a = result;
+    a = a.toPrecision(14);
+    if (negTan == true) {
+        a = 0 - a;
+    }
+    if (negA == true) {
+        a = 0 - a;
+    }
     return (a != null) ? a : undefined;
 }
 
