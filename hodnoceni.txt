@@ -1,0 +1,4 @@
+xcikel00 100 (matematická knižnica, testy, mockup)
+xploci00 80 (testy, matematická knižnica, mockup, profiling)
+xstrna11 50 (matematická knižnica, dokumentácia, manuál)
+xhrusk25 170 (front-end, prepojenie knižnica-kalkulaèka, mockup, makefile, profiling)
