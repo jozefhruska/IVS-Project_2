@@ -9,7 +9,12 @@
     "package": "electron-forge package",
     "make": "electron-forge make",
     "publish": "electron-forge publish",
-    "lint": "eslint src --color"
+    "lint": "eslint src --color",
+    "package-mac": "electron-packager . calculator --overwrite --asar=true --platform=darwin --arch=x64 --icon=inc/icons/mac/icon.icns --prune=true --out=release-builds",
+    "package-win": "electron-packager . calculator --overwrite --asar=true --platform=win32 --arch=ia32 --icon=inc/icons/win/icon.png.ico --prune=true --out=release-builds --version-string.CompanyName=CE --version-string.FileDescription=CE --version-string.ProductName=\"Calculator by Tough Question\"",
+    "package-linux": "electron-packager . calculator --overwrite --asar=true --platform=linux --arch=x64 --icon=inc/icons/png/512x512.png --prune=true --out=release-builds",
+    "create-installer-mac": "electron-installer-dmg ./release-builds/Electron-calculator-darwin-x64/Calculator.app electron-tutorial-app --out=release-builds --overwrite --icon=inc/icons/mac/icon.icns",
+    "create-installer-win": "node scripts/win-installer.js"
   },
   "keywords": [],
   "author": "Tough Question",
@@ -66,6 +71,7 @@
     "documentation": "^6.3.0",
     "electron-forge": "^5.1.2",
     "electron-prebuilt-compile": "1.8.3",
+    "electron-winstaller": "^2.6.4",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^15.1.0",
     "eslint-plugin-import": "^2.10.0",

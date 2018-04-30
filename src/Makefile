@@ -66,5 +66,6 @@ clean: FORCE
 	rm -rf node_modules
 	rm -rf out
 	rm -rf "$(PACK_DIR)"
+	rm -rf release-builds
 
 FORCE:
